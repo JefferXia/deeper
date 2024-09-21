@@ -15,7 +15,7 @@ const DigInput = () => {
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    
+    inputRef.current?.focus();
   }, []);
 
   const handleDownload = async(theUrl:string) => {
@@ -97,6 +97,11 @@ const DigInput = () => {
       </h3>
       <form 
         onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            handleSubmit(e);
+          }
+        }}
         className="w-full"
       >
         <div className="flex flex-col bg-light-secondary dark:bg-dark-secondary px-5 pt-5 pb-2 rounded-lg w-full border border-light-200 dark:border-dark-200">

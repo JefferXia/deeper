@@ -4,9 +4,11 @@ const nextConfig = {
     // domains: ['example.com'],
     remotePatterns: [
       {
-        hostname: 's2.googleusercontent.com',
-      },
+        // protocol: 'https',
+        hostname: '*.cos.ap-nanjing.myqcloud.com'
+      }
     ],
+    unoptimized: true
   },
 };
 

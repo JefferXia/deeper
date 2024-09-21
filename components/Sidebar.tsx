@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Film, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
+import { Film, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
@@ -27,9 +27,9 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       label: 'Home',
     },
     {
-      icon: Clapperboard,
-      href: '/videos',
-      active: segments.includes('videos') || segments.includes('video-analysis'),
+      icon: Flame,
+      href: '/hot',
+      active: segments.includes('hot') || segments.includes('video-analysis'),
       label: 'Videos',
     },
     // {
@@ -45,7 +45,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col">
         <div className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary px-2 py-8">
           <a className='block p-3 rounded-full bg-[#24A0ED]' href="/">
-            <Film className="cursor-pointer" />
+            <Clapperboard className="cursor-pointer" />
           </a>
           <VerticalIconContainer>
             {navLinks.map((link, i) => (
