@@ -4,20 +4,32 @@ import { Flame } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button"
+import { Download, Star } from 'lucide-react'
 
-export interface Video {
+export interface VideoItem {
   id: string;
   url: string;
   title: string;
   extractor: string;
   metadata: string;
-  createdAt: string;
+  metadataObj: any;
+  createdAt: number;
 }
 
 const Page = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+  const formatNumber = (num:number) => {
+    if (num >= 10000) {
+      return (num / 10000).toFixed(1) + '万';
+    } else if (num >= 1000) {
+      return (num / 1000).toFixed(1) + '千';
+    } else {
+      return num.toString();
+    }
+  }
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -32,12 +44,25 @@ const Page = () => {
 
       const data = await res.json();
 
-      setVideos(data.videos);
+      const newData = data.videos.map((item:any) => ({
+        metadataObj: JSON.parse(item.metadata),
+        ...item
+      }));
+
+      setVideos(newData);
       setLoading(false);
     };
 
     fetchVideos();
   }, []);
+
+  const downloadVideo = (url:string) => {
+    const a = document.createElement('a');
+    a.href = '//'+url;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 
   return loading ? (
     <div className="flex flex-row items-center justify-center min-h-screen">
@@ -61,7 +86,7 @@ const Page = () => {
   ) : (
     <div>
       <div className="fixed z-40 top-0 left-0 right-0 lg:pl-[104px] lg:pr-6 lg:px-8 px-4 py-4 lg:py-6 border-b border-light-200 dark:border-dark-200 bg-light-primary dark:bg-dark-primary">
-        <div className="flex flex-row items-center space-x-2 max-w-screen-lg lg:mx-auto">
+        <div className="hidden lg:flex flex-row items-center space-x-2 max-w-screen-lg lg:mx-auto">
           <Flame />
           <h2 className="text-black dark:text-white lg:text-3xl lg:font-medium">
             爆款广场
@@ -76,14 +101,15 @@ const Page = () => {
         </div>
       )}
       {videos.length > 0 && (
-        <div className="grid grid-cols-4 gap-4 pt-16 pb-7 lg:pt-24">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 pb-28 lg:pt-24 lg:pb-6">
           {videos.map((video, i) => (
             <div
               className="flex flex-col justify-between p-3 pb-2 bg-card rounded-lg"
               key={i}
             >
-              <div className=''>
+              <div className='flex flex-1 justify-center items-center bg-black'>
                 <video
+                  className='w-full'
                   ref={(el:any) => (videoRefs.current[i] = el)}
                   src={`//${video.url}`}
                   onMouseEnter={() => {
@@ -94,15 +120,32 @@ const Page = () => {
                   }}
                 ></video>
               </div>
-              <div className='pt-2'>
-                <p className="text-sm line-clamp-1">
+              <div className=''>
+                {/* <p className="text-sm line-clamp-1">
                   {video.title}
-                </p>
-                <Link
-                  href={`/video-analysis/${video.id}`}
-                >
-                  <Button variant="outline" className="w-2/3 h-[33px] hover:bg-opacity-85">分析视频</Button>
-                </Link>
+                </p> */}
+                <div className='flex justify-around py-4'>
+                  <div className='text-center'>
+                    <p className='text-lg font-medium'>{formatNumber(video.metadataObj?.like_count)}</p>
+                    <p className="text-sm text-gray-500">点赞</p>
+                  </div>
+                  <div className='text-center'>
+                    <p className='text-lg font-medium'>{formatNumber(video.metadataObj?.comment_count)}</p>
+                    <p className="text-sm text-gray-500">评论</p>
+                  </div>
+                </div>
+                <div className='flex justify-between items-center'>
+                  <Link
+                    className="block w-2/3"
+                    href={`/video-analysis/${video.id}`}
+                  >
+                    <Button variant="outline" className="w-full h-[33px] hover:bg-opacity-85 bg-[linear-gradient(225deg,_rgb(255,_58,_212)_0%,_rgb(151,_107,_255)_33%,_rgb(67,_102,_255)_66%,_rgb(89,_187,_252)_100%)]">分析视频</Button>
+                  </Link>
+                  <div className='flex space-x-2'>
+                    <Download className='cursor-pointer' size={20} onClick={() => downloadVideo(video.url)} />
+                    <Star className='cursor-pointer' size={20} />
+                  </div>
+                </div>
               </div>
             </div>
           ))}

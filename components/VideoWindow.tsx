@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Error from 'next/error';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 // import { useSearchParams } from 'next/navigation';
 import { Copy, Download, ClipboardPenLine, Layers2 } from 'lucide-react'
@@ -89,6 +90,7 @@ const VideoWindow = ({
   const [retry, setRetry] = useState(0); // 轮询次数
   const videoRef = useRef<HTMLVideoElement | null>(null);
   // const searchParams = useSearchParams();
+  const router = useRouter();
 
   const loadVideoData = async () => {
     try {
@@ -121,8 +123,12 @@ const VideoWindow = ({
         }
 
         if (data.video.subtitles) {
-          setRetry(0)
           setSubtitles(JSON.parse(data.video.subtitles))
+        }
+
+        if (data.video.subtitles && data.video.scene) {
+          setRetry(0)
+          router.replace(`/video-analysis/${id}`);
         } else {
           isFirst && setRetry(retry+1)
         }
@@ -167,7 +173,12 @@ const VideoWindow = ({
       if(videoInfo?.chatId) {
         setVideoChatId(videoInfo.chatId)
       } else {
-        setIntialInput(`你是一个短视频文案专家，根据给出的一段视频文案改写出一段新的短视频文案，要求：结合语境需要有多个分镜，每个分镜对应的文案，以列表方式排列。以下是参考文案：${subtitles.result}`)
+        const prompt = `你是一个短视频文案专家，根据给出的一段视频文案改写出一段新的短视频文案，
+        要求：结合语境需要有多个分镜，每个分镜对应的文案，以列表方式排列，如果能输出表格的形式更好。
+        以下是参考文案：“${subtitles.result}”
+        注意区分中英文，与参考文案的语言保持一致。
+        `;
+        setIntialInput(prompt)
       }
 
       if(markmapData) {
@@ -253,9 +264,9 @@ const VideoWindow = ({
                   ref={videoRef}
                   src={`//${videoInfo?.url}`}
                   width="270"
-                  onMouseEnter={() => {
-                    videoRef.current && videoRef.current.play()
-                  }}
+                  // onMouseEnter={() => {
+                  //   videoRef.current && videoRef.current.play()
+                  // }}
                   // onMouseLeave={() => {
                   //   videoRef.current && videoRef.current.pause()
                   // }}
