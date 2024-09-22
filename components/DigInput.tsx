@@ -109,12 +109,16 @@ const DigInput = () => {
             ref={inputRef}
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            minRows={1}
+            minRows={2}
             className="bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-sm text-black dark:text-white resize-none focus:outline-none w-full max-h-24 lg:max-h-36 xl:max-h-48"
             placeholder="输入你要解析的URL"
           />
-          <div className="flex flex-row items-center justify-between mt-4">
-            <div className="flex flex-row items-center space-x-1 -mx-2">
+          <div className="flex flex-row items-end justify-between mt-4">
+            <div className="flex flex-row space-x-3">
+              <img src="/images/tiktok.ico" width="16" height="16" alt="" />
+              <img src="/images/youtube.ico" width="16" height="16" alt="" />
+              <img src="/images/douyin.ico" width="16" height="16" alt="" />
+              <img src="/images/bilibili.ico" width="16" height="16" alt="" />
             </div>
             <div className="flex flex-row items-center space-x-4 -mx-2">
               <Button 

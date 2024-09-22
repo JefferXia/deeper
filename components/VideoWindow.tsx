@@ -67,7 +67,7 @@ export interface VideoInfo {
   aspect_ratio?: number
   subtitles?: string
   summary?: string
-  createdAt: Date 
+  createdAt: number 
 }
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const VideoWindow = ({ 
@@ -163,7 +163,7 @@ const VideoWindow = ({
   }, []);
 
   useEffect(() => {
-    if (subtitles) {
+    if (subtitles?.result) {
       if(videoInfo?.chatId) {
         setVideoChatId(videoInfo.chatId)
       } else {
@@ -228,7 +228,7 @@ const VideoWindow = ({
       return
     }
     const a = document.createElement('a');
-    a.href = videoInfo?.url;
+    a.href = '//'+videoInfo?.url;
     a.download = videoInfo?.title || ('video-' + Date.now()); // 设置下载后文件的名称
     document.body.appendChild(a);
     a.click();
