@@ -90,10 +90,10 @@ const DigInput = () => {
   return (
     <div className="mx-auto md:w-1/2 w-4/5 h-screen flex flex-col items-center justify-center space-y-5">
       <h2 className="text-black/70 dark:text-white/70 text-3xl font-medium">
-        爆款视频AI解析
+        达人说
       </h2>
       <h3 className="text-black/70 dark:text-white/70 text-base font-medium">
-        Dig anything here.
+        你要的爆款视频都在这——爆款视频AI解析神器
       </h3>
       <form 
         onSubmit={handleSubmit}

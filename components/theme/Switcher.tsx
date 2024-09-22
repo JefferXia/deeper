@@ -1,8 +1,17 @@
 'use client';
 import { useTheme } from 'next-themes';
-import { SunIcon, MoonIcon, MonitorIcon } from 'lucide-react';
+import { SunIcon, MoonIcon, MonitorIcon, SunMoon } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Select } from '../SettingsDialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -46,15 +55,28 @@ const ThemeSwitcher = ({ className }: { className?: string }) => {
   }
 
   return (
-    <Select
-      className={className}
-      value={theme}
-      onChange={(e) => handleThemeSwitch(e.target.value as Theme)}
-      options={[
-        { value: 'light', label: 'Light' },
-        { value: 'dark', label: 'Dark' },
-      ]}
-    />
+    // <Select
+    //   className={className}
+    //   value={theme}
+    //   onChange={(e) => handleThemeSwitch(e.target.value as Theme)}
+    //   options={[
+    //     { value: 'light', label: 'Light' },
+    //     { value: 'dark', label: 'Dark' },
+    //   ]}
+    // />
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <SunMoon
+          className="cursor-pointer"
+        />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-36">
+        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+          <DropdownMenuRadioItem value="dark">dark</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="light">light</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
