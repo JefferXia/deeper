@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Film, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
+import { BotMessageSquare, Film, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
@@ -34,10 +34,16 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       label: '爆款',
     },
     {
+      icon: BotMessageSquare,
+      href: '/ask',
+      active: segments.includes('ask') || segments.includes('c'),
+      label: '问AI',
+    },
+    {
       icon: BookOpenText,
       href: '/library',
-      active: segments.includes('library') || segments.includes('c'),
-      label: '问AI',
+      active: segments.includes('library'),
+      label: '记录',
     },
   ];
 
