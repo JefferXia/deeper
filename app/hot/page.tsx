@@ -54,6 +54,8 @@ const Page = () => {
     };
 
     fetchVideos();
+
+    document.body.click();
   }, []);
 
   const downloadVideo = (url:string) => {
