@@ -15,7 +15,12 @@ export interface VideoItem {
   metadataObj: any;
   createdAt: number;
 }
-
+declare global {
+  interface window {
+    location: any;
+  }
+}
+const protocol: string | undefined = window?.location?.protocol;
 const Page = () => {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -113,7 +118,7 @@ const Page = () => {
                 <video
                   className='w-full'
                   ref={(el:any) => (videoRefs.current[i] = el)}
-                  src={`//${video.url}`}
+                  src={`${protocol}//${video.url}`}
                   onMouseEnter={() => {
                     videoRefs.current[i] && videoRefs.current[i].play()
                   }}

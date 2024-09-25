@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: '问AI',
-  description: 'Chat with the internet, chat with Digany.',
+  title: '问一问AI - TopMind for video',
+  description: 'Chat with the internet, chat with TopMind.',
 };
 
 const Page = () => {

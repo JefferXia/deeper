@@ -14,9 +14,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'Digany - Chat with the internet',
+  title: 'TopMind for video',
   description:
-    'Digany is an AI powered chatbot that is connected to the internet.',
+    'TopMind is an AI powered chatbot that can help you create popular videos.',
 };
 
 export default function RootLayout({

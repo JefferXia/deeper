@@ -39,12 +39,12 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       active: segments.includes('ask') || segments.includes('c'),
       label: '问AI',
     },
-    {
-      icon: BookOpenText,
-      href: '/library',
-      active: segments.includes('library'),
-      label: '记录',
-    },
+    // {
+    //   icon: BookOpenText,
+    //   href: '/library',
+    //   active: segments.includes('library'),
+    //   label: '记录',
+    // },
   ];
 
   return (

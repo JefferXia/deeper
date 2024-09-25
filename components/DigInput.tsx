@@ -115,10 +115,10 @@ const DigInput = () => {
           />
           <div className="flex flex-row items-end justify-between mt-4">
             <div className="flex flex-row space-x-3">
-              <img src="/images/tiktok.ico" width="16" height="16" alt="" />
-              <img src="/images/youtube.ico" width="16" height="16" alt="" />
-              <img src="/images/douyin.ico" width="16" height="16" alt="" />
-              <img src="/images/bilibili.ico" width="16" height="16" alt="" />
+              <img src="/images/tiktok.png" className='w-[16px] h-[16px]' alt="tiktok" />
+              <img src="/images/youtube.png" className='w-[16px] h-[16px]' alt="youtube" />
+              <img src="/images/douyin.png" className='w-[16px] h-[16px]' alt="douyin" />
+              <img src="/images/bilibili.png" className='w-[16px] h-[16px]' alt="bilibili" />
             </div>
             <div className="flex flex-row items-center space-x-4 -mx-2">
               <Button 
