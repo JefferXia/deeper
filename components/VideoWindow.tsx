@@ -70,12 +70,6 @@ export interface VideoInfo {
   summary?: string
   createdAt: number 
 }
-declare global {
-  interface window {
-    location: any;
-  }
-}
-const protocol: string | undefined = window?.location?.protocol;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const VideoWindow = ({ 
   id,
@@ -245,7 +239,7 @@ const VideoWindow = ({
       return
     }
     const a = document.createElement('a');
-    a.href = protocol + '//' + videoInfo?.url;
+    a.href = 'https://' + videoInfo?.url;
     a.download = videoInfo?.title || ('video-' + Date.now()); // 设置下载后文件的名称
     document.body.appendChild(a);
     a.click();
@@ -268,7 +262,7 @@ const VideoWindow = ({
                   controls
                   controlsList='nodownload nofullscreen'
                   ref={videoRef}
-                  src={`${protocol}//${videoInfo?.url}`}
+                  src={`https://${videoInfo?.url}`}
                   width="270"
                   // onMouseEnter={() => {
                   //   videoRef.current && videoRef.current.play()
