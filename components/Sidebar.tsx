@@ -8,6 +8,8 @@ import React, { useState, type ReactNode } from 'react';
 import Layout from './Layout';
 import SettingsDialog from './SettingsDialog';
 import ThemeSwitcher from './theme/Switcher';
+import LangSwitcher from './theme/Lang';
+import { useTranslations } from 'use-intl'
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -19,25 +21,26 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const segments = useSelectedLayoutSegments();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const t = useTranslations();
 
   const navLinks = [
     {
       icon: Home,
       href: '/',
       active: segments.length === 0,
-      label: '首页',
+      label: t('side_bar.home_btn')
     },
     {
       icon: Flame,
       href: '/hot',
       active: segments.includes('hot') || segments.includes('video-analysis'),
-      label: '爆款',
+      label: t('side_bar.hot_btn')
     },
     {
       icon: BotMessageSquare,
       href: '/ask',
       active: segments.includes('ask') || segments.includes('c'),
-      label: '问AI',
+      label: t('side_bar.ask_btn')
     },
     // {
     //   icon: BookOpenText,
@@ -78,9 +81,10 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               ))}
             </VerticalIconContainer>
           </div>
-
-          <ThemeSwitcher />
-
+          <div className='flex flex-col gap-y-5'>
+            <LangSwitcher />
+            <ThemeSwitcher />
+          </div>
           {/* <Settings
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
             className="cursor-pointer"

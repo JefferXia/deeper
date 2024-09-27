@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
+import { GlobalContextProvider } from './globalcontext';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
@@ -28,17 +29,19 @@ export default function RootLayout({
     <html className="h-full" lang="en" suppressHydrationWarning>
       <body className={cn('h-full', montserrat.className)}>
         <ThemeProvider>
-          <Sidebar>{children}</Sidebar>
-          <Toaster
-            position="bottom-center"
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                toast:
-                  'bg-light-primary dark:bg-dark-secondary dark:text-white/70 text-black-70 rounded-lg ml-[100px] p-4 flex flex-row items-center',
-              },
-            }}
-          />
+          <GlobalContextProvider>
+            <Sidebar>{children}</Sidebar>
+            <Toaster
+              position="bottom-center"
+              toastOptions={{
+                unstyled: true,
+                classNames: {
+                  toast:
+                    'bg-light-primary dark:bg-dark-secondary dark:text-white/70 text-black-70 rounded-lg ml-[100px] p-4 flex flex-row items-center',
+                },
+              }}
+            />
+          </GlobalContextProvider>
         </ThemeProvider>
       </body>
     </html>

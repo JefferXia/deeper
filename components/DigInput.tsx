@@ -7,12 +7,14 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { Button } from "@/components/ui/button"
 import { downloadUrl } from '@/lib/actions'
 import { ArrowRight, CloudUpload, LoaderCircle } from 'lucide-react'
+import { useTranslations } from 'use-intl'
 
 const DigInput = () => {
   const [loading, setLoading] = useState(false);
   const [url, setUrl] = useState('');
   const router = useRouter();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const t = useTranslations();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -26,7 +28,7 @@ const DigInput = () => {
         router.push(`/video-analysis/${response.id}?first=yes`);
       } else {
         toast.error(
-          response?.message || '提取失败',
+          response?.message || t('home_page.toast_extract_fail'),
         );
         setLoading(false)  
       }
@@ -34,7 +36,7 @@ const DigInput = () => {
       setLoading(false)
       console.error(error)
       toast.error(
-        '提取时发生错误',
+        t('error_info.catch_error'),
       );
     } finally {    
     }
@@ -50,9 +52,7 @@ const DigInput = () => {
       const theUrl = matchUrl[0];
       handleDownload(theUrl)
     } else {
-      toast.error(
-        '请输入正确的URL',
-      );
+      toast.error(t('home_page.toast_invalid_url'));
     }
   }
 
@@ -79,21 +79,21 @@ const DigInput = () => {
           setLoading(false)
         }
       } catch (error) {
-        toast.error("上传文件失败，请稍后再试");
+        toast.error(t('error_info.catch_error'));
         setLoading(false)
       }
     } else {
-      toast.error("请上传一个有效的视频文件");
+      toast.error(t('home_page.toast_invalid_file'));
     }
   }
 
   return (
     <div className="mx-auto md:w-1/2 w-4/5 h-screen flex flex-col items-center justify-center space-y-5">
       <h2 className="text-black/70 dark:text-white/70 text-3xl font-medium">
-        达人说
+        {t('home_page.title')}
       </h2>
       <h3 className="text-black/70 dark:text-white/70 text-base font-medium">
-        你要的爆款视频都在这——爆款视频AI解析神器
+        {t('home_page.subtitle')}
       </h3>
       <form 
         onSubmit={handleSubmit}
@@ -111,7 +111,7 @@ const DigInput = () => {
             onChange={(e) => setUrl(e.target.value)}
             minRows={2}
             className="bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-sm text-black dark:text-white resize-none focus:outline-none w-full max-h-24 lg:max-h-36 xl:max-h-48"
-            placeholder="输入你要解析的URL"
+            placeholder={t('home_page.placeholder')}
           />
           <div className="flex flex-row items-end justify-between mt-4">
             <div className="flex flex-row space-x-3">
@@ -142,7 +142,7 @@ const DigInput = () => {
       )}
       <div className='relative w-full h-[230px] flex flex-col items-center justify-center bg-light-secondary dark:bg-dark-secondary text-card-foreground/70 border border-dashed border-primary/70 rounded-lg'>
         <CloudUpload size={40} />
-        <p className='text-sm'>上传文件</p>
+        <p className='text-sm'>{t('home_page.upload_text')}</p>
         <input type="file" className='opacity-0 absolute top-0 left-0 right-0 bottom-0' accept="video/*" onChange={handleFileChange} />
       </div>
     </div>
