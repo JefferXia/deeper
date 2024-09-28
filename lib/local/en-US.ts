@@ -17,6 +17,15 @@ export const en = {
     cn_mode: 'Chinese',
     en_mode: 'English'
   },
+  hot_page: {
+    no_data: 'No data~',
+    play_text: 'Click to play',
+    likes: 'Likes',
+    comments: 'Comments',
+    main_btn: 'Analyse',
+    unit_w: 'W',
+    unit_k: 'K'
+  },
   error_info: {
     catch_error: 'An error occurred, please try again'
   }

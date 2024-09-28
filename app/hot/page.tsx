@@ -1,10 +1,11 @@
 'use client';
 
-import { Flame } from 'lucide-react';
+import { Flame, PlayCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button"
 import { Download, Star } from 'lucide-react'
+import { useTranslations } from 'use-intl'
 
 export interface VideoItem {
   id: string;
@@ -15,22 +16,18 @@ export interface VideoItem {
   metadataObj: any;
   createdAt: number;
 }
-// declare global {
-//   interface window {
-//     location: Location;
-//   }
-// }
-// const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https';
+
 const Page = () => {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
+  const t = useTranslations();
 
   const formatNumber = (num:number) => {
     if (num >= 10000) {
-      return (num / 10000).toFixed(1) + '万';
+      return (num / 10000).toFixed(1) + t('hot_page.unit_w');
     } else if (num >= 1000) {
-      return (num / 1000).toFixed(1) + '千';
+      return (num / 1000).toFixed(1) + t('hot_page.unit_k');
     } else {
       return num.toString();
     }
@@ -59,8 +56,6 @@ const Page = () => {
     };
 
     fetchVideos();
-
-    document.body.click();
   }, []);
 
   const downloadVideo = (url:string) => {
@@ -92,8 +87,8 @@ const Page = () => {
     </div>
   ) : (
     <div>
-      <div className="fixed z-40 top-0 left-0 right-0 lg:pl-[104px] lg:pr-6 lg:px-8 px-4 py-4 lg:py-6 border-b border-light-200 dark:border-dark-200 bg-light-primary dark:bg-dark-primary">
-        <div className="hidden lg:flex flex-row items-center space-x-2 max-w-screen-lg lg:mx-auto">
+      <div className="hidden fixed z-40 top-0 left-0 right-0 lg:pl-[104px] lg:pr-6 lg:px-8 px-4 py-4 lg:py-6 border-b border-light-200 dark:border-dark-200 bg-light-primary dark:bg-dark-primary">
+        <div className="flex flex-row items-center space-x-2 max-w-screen-lg lg:mx-auto">
           <Flame />
           <h2 className="text-black dark:text-white lg:text-3xl lg:font-medium">
             爆款广场
@@ -103,29 +98,34 @@ const Page = () => {
       {videos.length === 0 && (
         <div className="flex flex-row items-center justify-center min-h-screen">
           <p className="text-black/70 dark:text-white/70 text-sm">
-            没有热门视频
+          {t('hot_page.no_data')}
           </p>
         </div>
       )}
       {videos.length > 0 && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 pb-28 lg:pt-24 lg:pb-6">
+        <div className="grid grid-cols-2 xl:grid-cols-5 lg:grid-cols-4 gap-4 pt-6 pb-28 lg:pt-24 lg:pb-6">
           {videos.map((video, i) => (
             <div
               className="flex flex-col justify-between p-3 pb-2 bg-card rounded-lg"
               key={i}
             >
-              <div className='flex flex-1 justify-center items-center bg-black'>
+              <div 
+                onClick={() => {
+                  videoRefs.current[i] && videoRefs.current[i].play()
+                }}
+                className='flex flex-1 justify-center items-center bg-black relative transition duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer'>
                 <video
                   className='w-full'
                   ref={(el:any) => (videoRefs.current[i] = el)}
-                  src={`https://${video.url}`}
-                  onMouseEnter={() => {
-                    videoRefs.current[i] && videoRefs.current[i].play()
-                  }}
+                  src={`//${video.url}`}
                   onMouseLeave={() => {
                     videoRefs.current[i] && videoRefs.current[i].pause()
                   }}
                 ></video>
+                <div className="absolute bg-white/70 dark:bg-black/70 text-black/70 dark:text-white/70 px-2 py-1 flex flex-row items-center space-x-1 bottom-1 right-1 rounded-md">
+                  <PlayCircle size={15} />
+                  <p className="text-xs">{t('hot_page.play_text')}</p>
+                </div>
               </div>
               <div className=''>
                 {/* <p className="text-sm line-clamp-1">
@@ -134,11 +134,11 @@ const Page = () => {
                 <div className='flex justify-around py-4'>
                   <div className='text-center'>
                     <p className='text-lg font-medium'>{formatNumber(video.metadataObj?.like_count)}</p>
-                    <p className="text-sm text-gray-500">点赞</p>
+                    <p className="text-sm text-gray-500">{t('hot_page.likes')}</p>
                   </div>
                   <div className='text-center'>
                     <p className='text-lg font-medium'>{formatNumber(video.metadataObj?.comment_count)}</p>
-                    <p className="text-sm text-gray-500">评论</p>
+                    <p className="text-sm text-gray-500">{t('hot_page.comments')}</p>
                   </div>
                 </div>
                 <div className='flex justify-between items-center'>
@@ -146,7 +146,9 @@ const Page = () => {
                     className="block w-2/3"
                     href={`/video-analysis/${video.id}`}
                   >
-                    <Button variant="outline" className="w-full h-[33px] hover:bg-opacity-85 bg-[linear-gradient(225deg,_rgb(255,_58,_212)_0%,_rgb(151,_107,_255)_33%,_rgb(67,_102,_255)_66%,_rgb(89,_187,_252)_100%)]">分析视频</Button>
+                    <Button variant="outline" className="w-full h-[33px] hover:bg-opacity-85 bg-[linear-gradient(225deg,_rgb(255,_58,_212)_0%,_rgb(151,_107,_255)_33%,_rgb(67,_102,_255)_66%,_rgb(89,_187,_252)_100%)]">
+                      {t('hot_page.main_btn')}
+                    </Button>
                   </Link>
                   <div className='flex space-x-2'>
                     <Download className='cursor-pointer' size={20} onClick={() => downloadVideo(video.url)} />
