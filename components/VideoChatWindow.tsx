@@ -37,14 +37,12 @@ const useSocket = (
 
         const wsURL = new URL(url);
         const searchParams = new URLSearchParams({});
-
         searchParams.append('chatModel', chatModel!);
         searchParams.append('chatModelProvider', chatModelProvider);
         searchParams.append('embeddingModel', embeddingModel!);
         searchParams.append('embeddingModelProvider', embeddingModelProvider);
 
         wsURL.search = searchParams.toString();
-
         const ws = new WebSocket(wsURL.toString());
 
         const timeoutId = setTimeout(() => {

@@ -10,6 +10,8 @@ import { toast } from 'sonner';
 import { useSearchParams } from 'next/navigation';
 import { getSuggestions } from '@/lib/actions';
 import Error from 'next/error';
+import { Button } from "@/components/ui/button"
+import { useRouter } from 'next/navigation';
 
 export type Message = {
   messageId: string;
@@ -282,6 +284,7 @@ const ChatWindow = ({ id }: { id?: string }) => {
   const [isMessagesLoaded, setIsMessagesLoaded] = useState(false);
 
   const [notFound, setNotFound] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (
@@ -470,6 +473,12 @@ const ChatWindow = ({ id }: { id?: string }) => {
     sendMessage(message.content);
   };
 
+  const reconnect = () => {
+    if(typeof window !== 'undefined') {
+      window.location.reload()
+    }
+  }
+
   useEffect(() => {
     if (isReady && initialMessage) {
       sendMessage(initialMessage);
@@ -480,9 +489,10 @@ const ChatWindow = ({ id }: { id?: string }) => {
   if (hasError) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="dark:text-white/70 text-black/70 text-sm">
+        <p className="mb-2 dark:text-white/70 text-black/70 text-sm">
           Failed to connect to the server. Please try again later.
         </p>
+        <Button onClick={reconnect}>重新连接</Button>
       </div>
     );
   }
