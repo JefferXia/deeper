@@ -73,7 +73,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                   <div>
                     <link.icon />
                   </div>
-                  <p className='text-xs mt-1'>{link.label}</p>
+                  <div className='text-xs mt-1'>{link.label}</div>
                   {link.active && (
                     <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-black dark:bg-white" />
                   )}
@@ -113,7 +113,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               <div className="absolute top-0 -mt-4 h-1 w-full rounded-b-lg bg-black dark:bg-white" />
             )}
             <link.icon />
-            <p className="text-xs">{link.label}</p>
+            <div className="text-xs block">{link.label}</div>
           </Link>
         ))}
       </div>

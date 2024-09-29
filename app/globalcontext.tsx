@@ -30,7 +30,7 @@ export const GlobalContextProvider = function ({
   userInfo?: UserInfo
 }) {
   const path = usePathname()
-  const [language, setLanguage] = useLanguage('en')
+  const [language, setLanguage] = useLanguage('zh')
   const [loginModalOpen, setLoginModalOpen] = useState(false)
 
   const localeMessages = useMemo(() => {

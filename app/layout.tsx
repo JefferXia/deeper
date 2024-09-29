@@ -6,6 +6,7 @@ import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
 import { GlobalContextProvider } from './globalcontext';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
+      <GoogleAnalytics gaId="G-DDJKD745FB" />
       <body className={cn('h-full', montserrat.className)}>
         <ThemeProvider>
           <GlobalContextProvider>
