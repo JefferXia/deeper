@@ -112,6 +112,7 @@ const DigInput = () => {
             minRows={2}
             className="bg-transparent placeholder:text-black/50 dark:placeholder:text-white/50 text-sm text-black dark:text-white resize-none focus:outline-none w-full max-h-24 lg:max-h-36 xl:max-h-48"
             placeholder={t('home_page.placeholder')}
+            disabled={loading}
           />
           <div className="flex flex-row items-end justify-between mt-4">
             <div className="flex flex-row space-x-3">

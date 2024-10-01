@@ -10,57 +10,7 @@ import { cn } from '@/lib/utils';
 import { Popover, Transition } from '@headlessui/react';
 import { SiReddit, SiYoutube } from '@icons-pack/react-simple-icons';
 import { Fragment } from 'react';
-
-const focusModes = [
-  {
-    key: 'webSearch',
-    title: 'All',
-    description: 'Searches across all of the internet',
-    icon: <Globe size={20} />,
-  },
-  {
-    key: 'academicSearch',
-    title: 'Academic',
-    description: 'Search in published academic papers',
-    icon: <SwatchBook size={20} />,
-  },
-  {
-    key: 'writingAssistant',
-    title: 'Writing',
-    description: 'Chat without searching the web',
-    icon: <Pencil size={16} />,
-  },
-  {
-    key: 'wolframAlphaSearch',
-    title: 'Wolfram Alpha',
-    description: 'Computational knowledge engine',
-    icon: <BadgePercent size={20} />,
-  },
-  {
-    key: 'youtubeSearch',
-    title: 'Youtube',
-    description: 'Search and watch videos',
-    icon: (
-      <SiYoutube
-        className="h-5 w-auto mr-0.5"
-        // onPointerEnterCapture={undefined}
-        // onPointerLeaveCapture={undefined}
-      />
-    ),
-  },
-  {
-    key: 'redditSearch',
-    title: 'Reddit',
-    description: 'Search for discussions and opinions',
-    icon: (
-      <SiReddit
-        className="h-5 w-auto mr-0.5"
-        // onPointerEnterCapture={undefined}
-        // onPointerLeaveCapture={undefined}
-      />
-    ),
-  },
-];
+import { useTranslations } from 'use-intl'
 
 const Focus = ({
   focusMode,
@@ -69,6 +19,58 @@ const Focus = ({
   focusMode: string;
   setFocusMode: (mode: string) => void;
 }) => {
+  const t = useTranslations();
+
+  const focusModes = [
+    {
+      key: 'webSearch',
+      title: t('ai.focus_all_title'),
+      description: t('ai.focus_all_description'),
+      icon: <Globe size={20} />,
+    },
+    {
+      key: 'academicSearch',
+      title: t('ai.focus_academic_title'),
+      description: t('ai.focus_academic_description'),
+      icon: <SwatchBook size={20} />,
+    },
+    {
+      key: 'writingAssistant',
+      title: t('ai.focus_writing_title'),
+      description: t('ai.focus_writing_description'),
+      icon: <Pencil size={16} />,
+    },
+    {
+      key: 'wolframAlphaSearch',
+      title: t('ai.focus_knowledge_title'),
+      description: t('ai.focus_knowledge_description'),
+      icon: <BadgePercent size={20} />,
+    },
+    {
+      key: 'youtubeSearch',
+      title: t('ai.focus_youtube_title'),
+      description: t('ai.focus_youtube_description'),
+      icon: (
+        <SiYoutube
+          className="h-5 w-auto mr-0.5"
+          // onPointerEnterCapture={undefined}
+          // onPointerLeaveCapture={undefined}
+        />
+      ),
+    },
+    {
+      key: 'redditSearch',
+      title: t('ai.focus_reddit_title'),
+      description: t('ai.focus_reddit_description'),
+      icon: (
+        <SiReddit
+          className="h-5 w-auto mr-0.5"
+          // onPointerEnterCapture={undefined}
+          // onPointerLeaveCapture={undefined}
+        />
+      ),
+    },
+  ];
   return (
     <Popover className="fixed w-full max-w-[15rem] md:max-w-md lg:max-w-lg">
       <Popover.Button

@@ -54,7 +54,19 @@ export const zh = {
     rewrite: '重写',
     chat_title: '问一问 AI',
     placeholder: '提出好问题，获取好答案',
-    ask_more: '继续追问'
+    ask_more: '继续追问',
+    focus_all_title: '全网',
+    focus_all_description: '全网搜索',
+    focus_academic_title: '学术',
+    focus_academic_description: '在已发表的学术论文中搜索',
+    focus_writing_title: '对话',
+    focus_writing_description: '不通过搜索网络直接对话',
+    focus_knowledge_title: '知识引擎',
+    focus_knowledge_description: '通过知识引擎回答',
+    focus_youtube_title: 'Youtube',
+    focus_youtube_description: '搜索观看视频',
+    focus_reddit_title: 'Reddit',
+    focus_reddit_description: '找观点与热门话题'
   },
   error_info: {
     catch_error: '发生错误，请重试~'
