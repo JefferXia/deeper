@@ -28,8 +28,8 @@ export default function RootLayout({
 }>) {
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
-      <GoogleAnalytics gaId="G-DDJKD745FB" />
       <body className={cn('h-full', montserrat.className)}>
+        <GoogleAnalytics gaId="G-DDJKD745FB" />
         <ThemeProvider>
           <GlobalContextProvider>
             <Sidebar>{children}</Sidebar>
