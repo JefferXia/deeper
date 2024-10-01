@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 // import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'use-intl'
 import { Copy, Download, ClipboardPenLine, Layers2 } from 'lucide-react'
 import { getSummary } from '@/lib/actions';
 import {
@@ -91,6 +92,7 @@ const VideoWindow = ({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   // const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useTranslations();
 
   const loadVideoData = async () => {
     try {
@@ -176,7 +178,7 @@ const VideoWindow = ({
         const prompt = `你是一个短视频文案专家，根据给出的一段视频文案改写出一段新的短视频文案，
         要求：结合语境需要有多个分镜，每个分镜对应的文案，以列表方式排列，如果能输出表格的形式更好。
         以下是参考文案：“${subtitles.result}”
-        输出答案注意区分中英文语言，与参考文案的语言保持一致。
+        输出答案注意区分中英文语言。
         `;
         setIntialInput(prompt)
       }
@@ -228,9 +230,9 @@ const VideoWindow = ({
   const copyText = () => {
     if (subtitles?.result) {
       navigator.clipboard.writeText(subtitles?.result);
-      toast.success('文案已复制');
+      toast.success(t('video_page.toast_copy'));
     } else {
-      toast.error('该视频还没有字幕');
+      toast.error(t('video_page.toast_nocopy'));
     }
   }
 
@@ -239,7 +241,7 @@ const VideoWindow = ({
       return
     }
     const a = document.createElement('a');
-    a.href = 'https://' + videoInfo?.url;
+    a.href = '//' + videoInfo?.url;
     a.download = videoInfo?.title || ('video-' + Date.now()); // 设置下载后文件的名称
     document.body.appendChild(a);
     a.click();
@@ -262,7 +264,7 @@ const VideoWindow = ({
                   controls
                   controlsList='nodownload nofullscreen'
                   ref={videoRef}
-                  src={`https://${videoInfo?.url}`}
+                  src={`//${videoInfo?.url}`}
                   width="270"
                   // onMouseEnter={() => {
                   //   videoRef.current && videoRef.current.play()
@@ -275,37 +277,37 @@ const VideoWindow = ({
 
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <Button variant="secondary" onClick={copyText}>
-                  <Copy className="mr-2 h-4 w-4" />复制文案
+                  <Copy className="mr-2 h-4 w-4" />{t('video_page.btn_copy')}
                 </Button>
 
                 <Drawer>
                   <DrawerTrigger asChild>
                     <Button variant="secondary">
-                      <ClipboardPenLine className="mr-2 h-4 w-4" />一键改写
+                      <ClipboardPenLine className="mr-2 h-4 w-4" />{t('video_page.btn_rewrite')}
                     </Button>
                   </DrawerTrigger>
                   <DrawerContent>
                     <div className="flex flex-col mx-auto w-full max-w-screen-lg h-screen-200">
                       <DrawerHeader>
-                        <DrawerTitle>问一问 AI</DrawerTitle>
-                        <DrawerDescription>可以继续描述你的改写需求</DrawerDescription>
+                        <DrawerTitle>{t('video_page.ai_panel_title')}</DrawerTitle>
+                        <DrawerDescription>{t('video_page.ai_panel_description')}</DrawerDescription>
                       </DrawerHeader>
                       <div className="flex-1 overflow-y-auto">
                         <VideoChatWindow id={videoChatId} intialInput={intialInput} sendChatId={setVideoChatId} />
                       </div>
                       <DrawerClose asChild>
-                        <Button className='absolute top-5 right-5' variant="outline">关闭对话</Button>
+                        <Button className='absolute top-5 right-5' variant="outline">{t('video_page.ai_panel_close')}</Button>
                       </DrawerClose>
                     </div>
                   </DrawerContent>
                 </Drawer>
 
                 <Button variant="secondary" onClick={downloadVideo}>
-                  <Download className="mr-2 h-4 w-4" />下载视频
+                  <Download className="mr-2 h-4 w-4" />{t('video_page.btn_download')}
                 </Button>
 
                 <Button variant="secondary">
-                  <Layers2 className="mr-2 h-5 w-4" />模仿创作
+                  <Layers2 className="mr-2 h-5 w-4" />{t('video_page.btn_simulate')}
                 </Button>
               </div>
             </div>

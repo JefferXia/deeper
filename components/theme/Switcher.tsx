@@ -12,15 +12,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useTranslations } from 'use-intl'
 
 type Theme = 'dark' | 'light' | 'system';
 
 const ThemeSwitcher = ({ className }: { className?: string }) => {
   const [mounted, setMounted] = useState(false);
-
   const { theme, setTheme } = useTheme();
-
   const isTheme = useCallback((t: Theme) => t === theme, [theme]);
+  const t = useTranslations();
 
   const handleThemeSwitch = (theme: Theme) => {
     setTheme(theme);
@@ -72,8 +72,8 @@ const ThemeSwitcher = ({ className }: { className?: string }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-36">
         <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-          <DropdownMenuRadioItem value="dark">dark</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="light">light</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">{t('side_bar.dark_mode')}</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="light">{t('side_bar.light_mode')}</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

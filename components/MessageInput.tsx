@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import Attach from './MessageInputActions/Attach';
 import CopilotToggle from './MessageInputActions/Copilot';
+import { useTranslations } from 'use-intl'
 
 const MessageInput = ({
   sendMessage,
@@ -16,6 +17,7 @@ const MessageInput = ({
   const [message, setMessage] = useState('');
   const [textareaRows, setTextareaRows] = useState(1);
   const [mode, setMode] = useState<'multi' | 'single'>('single');
+  const t = useTranslations();
 
   useEffect(() => {
     if (textareaRows >= 2 && message && mode === 'single') {
@@ -71,7 +73,7 @@ const MessageInput = ({
           setTextareaRows(Math.ceil(height / props.rowHeight));
         }}
         className="transition bg-transparent dark:placeholder:text-white/50 placeholder:text-sm text-sm dark:text-white resize-none focus:outline-none w-full px-2 max-h-24 lg:max-h-36 xl:max-h-48 flex-grow flex-shrink"
-        placeholder="继续追问"
+        placeholder={t('ai.ask_more')}
       />
       {mode === 'single' && (
         <div className="flex flex-row items-center space-x-4">

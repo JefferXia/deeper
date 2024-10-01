@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { VideoInfo } from '@/components/VideoWindow'
+import { useTranslations } from 'use-intl'
 // import CircularProgress from '@mui/joy/CircularProgress'
 // import { useCountUp } from 'use-count-up'
 
@@ -16,6 +17,7 @@ const VideoInfoBox = ({ videoInfo }: { videoInfo?: VideoInfo }) => {
       
   //   // },
   // });
+  const t = useTranslations();
   
   useEffect(() => {    
     if (videoInfo) {
@@ -26,7 +28,7 @@ const VideoInfoBox = ({ videoInfo }: { videoInfo?: VideoInfo }) => {
   return (
     <div className="grid grid-cols-3 gap-5 text-card-foreground">
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">创作者</div>
+        <div className="mb-1">{t('video_page.author')}</div>
         {videoInfo?.uploader_url ? (
           <Link href={videoInfo?.uploader_url} target='_blank' className='text-[#24A0ED] hover:underline'>
             {videoInfo?.uploader}
@@ -38,40 +40,40 @@ const VideoInfoBox = ({ videoInfo }: { videoInfo?: VideoInfo }) => {
         )}
       </div>
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">粉丝数</div>
+        <div className="mb-1">{t('video_page.fans')}</div>
         <div className='text-foreground'>{videoInfo?.channel_follower_count || '--'}</div>
       </div>
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">平台</div>
+        <div className="mb-1">{t('video_page.platform')}</div>
         <div className='text-foreground'>{videoInfo?.extractor === 'douyin' ? '抖音' : videoInfo?.extractor}</div>
       </div>
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">点赞数</div>
+        <div className="mb-1">{t('video_page.likes')}</div>
         <div className='text-foreground'>{videoInfo?.like_count}</div>
       </div>
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">评论数</div>
+        <div className="mb-1">{t('video_page.comments')}</div>
         <div className='text-foreground'>{videoInfo?.comment_count}</div>
       </div>
       {videoInfo?.extractor === 'douyin' ? (
         <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-          <div className="mb-1">收藏数</div>
+          <div className="mb-1">{t('video_page.collects')}</div>
           <div className='text-foreground'>{videoInfo?.view_count}</div>
         </div>
       ) : (
         <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-          <div className="mb-1">观看数</div>
+          <div className="mb-1">{t('video_page.views')}</div>
           <div className='text-foreground'>{videoInfo?.view_count}</div>
         </div>
       )}
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">时长</div>
-        <div className='text-foreground'>{videoInfo?.duration}秒</div>
+        <div className="mb-1">{t('video_page.duration')}</div>
+        <div className='text-foreground'>{videoInfo?.duration}{t('video_page.duration_unit')}</div>
       </div>
       <div className='shadow-sm rounded-lg bg-card px-6 py-4'>
-        <div className="mb-1">预估收益</div>
+        <div className="mb-1">{t('video_page.income')}</div>
         <div className='text-foreground'>
-          {videoInfo?.like_count ? `${Number(videoInfo?.like_count * 0.03).toFixed(2)} - ${Number(videoInfo?.like_count * 0.05).toFixed(2)} 元` : '--'}
+          {videoInfo?.like_count ? `${Number(videoInfo?.like_count * 0.03).toFixed(2)} - ${Number(videoInfo?.like_count * 0.05).toFixed(2)}` : '--'}
         </div>
       </div>
       {/* <div className='shadow-sm rounded-lg bg-card px-6 py-4'>

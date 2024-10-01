@@ -26,6 +26,36 @@ export const en = {
     unit_w: 'W',
     unit_k: 'K'
   },
+  video_page: {
+    toast_copy: 'The copy has been copied',
+    toast_nocopy: "This video doesn't have subtitles yet",
+    btn_copy: 'Copy it',
+    btn_rewrite: 'Rewrite',
+    btn_download: 'Download',
+    btn_simulate: 'Go create',
+    ai_panel_title: 'Ask AI',
+    ai_panel_description: 'Continue to describe your rewriting requirements',
+    ai_panel_close: 'Close',
+    author: 'Author',
+    fans: 'Followers',
+    platform: 'Source',
+    likes: 'Likes',
+    comments: 'Comments',
+    collects: 'Collections',
+    views: 'Views',
+    duration: 'Duration',
+    duration_unit: 's',
+    income: 'Estimated earnings',
+    scene: 'Scene',
+    copywriting: 'Copywriting',
+    no_subtitles: 'No subtitles'
+  },
+  ai: {
+    rewrite: 'Rewrite',
+    chat_title: 'Chat with TopMind.',
+    placeholder: 'Ask anything...',
+    ask_more: 'Ask a follow-up'
+  },
   error_info: {
     catch_error: 'An error occurred, please try again'
   }

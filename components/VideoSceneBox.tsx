@@ -3,8 +3,10 @@ import { LayoutList, LayoutGrid } from 'lucide-react'
 import { Scene, Subtitle } from '@/components/VideoWindow'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SrtBoxLoading from '@/components/SrtBoxLoading'
+import { useTranslations } from 'use-intl'
 
 const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
+  const t = useTranslations();
   
   useEffect(() => {    
     
@@ -26,9 +28,9 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr className='text-[#A0AEC0] text-left'>
-                  <th className='w-[180px] px-6 py-3 border-b border-tbborder'>场景</th>
+                  <th className='w-[180px] px-6 py-3 border-b border-tbborder'>{t('video_page.scene')}</th>
                   <th className='w-[100px] px-0 py-3 border-b border-tbborder'></th>
-                  <th className='px-6 py-3 border-b border-tbborder'>文案</th>
+                  <th className='px-6 py-3 border-b border-tbborder'>{t('video_page.copywriting')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -61,7 +63,7 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
                       <img src={`//${s.url}`} width={180} className='rounded-md' alt={`Scene ${sceneIndex}`} />
                     </td>
                     <td className='px-6 py-3 border-b border-tbborder'></td>
-                    <td className='px-6 py-3 border-b border-tbborder'>无字幕</td>
+                    <td className='px-6 py-3 border-b border-tbborder'>{t('video_page.no_subtitles')}</td>
                   </tr>
                 )
               ))}
@@ -85,7 +87,7 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
                   </p>
                 ))
               ) : (
-                <p>无字幕</p>
+                <p>{t('video_page.no_subtitles')}</p>
               )}
               </div>
             </div>
