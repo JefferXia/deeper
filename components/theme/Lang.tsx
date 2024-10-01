@@ -11,11 +11,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useTranslations } from 'use-intl'
 
 const LangSwitcher = () => {
   const { language, setLanguage } = useGlobalContext();
-  const t = useTranslations();
 
   return (
     <DropdownMenu>
@@ -26,8 +24,8 @@ const LangSwitcher = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-36">
         <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
-          <DropdownMenuRadioItem value="cn">{t('side_bar.cn_mode')}</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="en">{t('side_bar.en_mode')}</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="cn">简体中文</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
