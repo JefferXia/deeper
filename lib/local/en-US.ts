@@ -9,13 +9,12 @@ export const en = {
     toast_invalid_file: 'Please upload a valid video file'
   },
   side_bar: {
-    home_btn: 'Home',
+    home_btn: 'Analyse',
     hot_btn: 'Inspiration',
     ask_btn: 'AIbot',
     dark_mode: 'Dark',
     light_mode: 'Light',
-    cn_mode: 'Chinese',
-    en_mode: 'English'
+    btn_login: 'Log In / Register'
   },
   hot_page: {
     no_data: 'No data~',

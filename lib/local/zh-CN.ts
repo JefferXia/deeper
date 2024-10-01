@@ -9,11 +9,12 @@ export const zh = {
     toast_invalid_file: '请上传一个有效的视频文件'
   },
   side_bar: {
-    home_btn: '首页',
+    home_btn: '拆解视频',
     hot_btn: '创作灵感',
     ask_btn: '问AI',
     dark_mode: '深色主题',
-    light_mode: '浅色主题'
+    light_mode: '浅色主题',
+    btn_login: '登录 / 注册'
   },
   hot_page: {
     no_data: '没有热门视频',

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { BotMessageSquare, Film, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
+import { BotMessageSquare, FileVideo, Sparkles, CircleUserRound, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
@@ -10,6 +10,7 @@ import SettingsDialog from './SettingsDialog';
 import ThemeSwitcher from './theme/Switcher';
 import LangSwitcher from './theme/Lang';
 import { useTranslations } from 'use-intl'
+import { Button } from "@/components/ui/button"
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -25,13 +26,13 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
   const navLinks = [
     {
-      icon: Home,
+      icon: FileVideo,
       href: '/',
       active: segments.length === 0,
       label: t('side_bar.home_btn')
     },
     {
-      icon: Flame,
+      icon: Sparkles,
       href: '/hot',
       active: segments.includes('hot') || segments.includes('video-analysis'),
       label: t('side_bar.hot_btn')
@@ -52,14 +53,14 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col hover:w-[230px] overflow-hidden transition-[width] duration-500 ease-in-out">
+      <div className="group hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col hover:w-[230px] overflow-hidden transition-[width] duration-500 ease-in-out">
         <div className="w-[230px] flex grow flex-col items-start justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary py-8">
-          <div className='w-full'>
-            <a className='flex items-center ml-[15px] mb-10' href="/">
-              <div className='flex justify-center items-center mr-[15px] w-[50px] h-[50px] rounded-full bg-[#24A0ED]'>
+          <div className='w-full transition-[padding] duration-500 px-5 group-hover:px-8'>
+            <a className='flex items-center mb-10 transition-all duration-500 whitespace-nowrap' href="/">
+              <div className='flex justify-center items-center mr-[10px] w-[40px] h-[40px] rounded-full bg-[#24A0ED]'>
                 <Clapperboard />
               </div>
-              <div className='text-2xl'>Top Mind</div>
+              <div className='text-xl font-medium invisible group-hover:visible'>TopMind</div>
             </a>
             <VerticalIconContainer>
               {navLinks.map((link, i) => (
@@ -67,14 +68,14 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                   key={i}
                   href={link.href}
                   className={cn(
-                    'relative flex items-center justify-start cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 duration-150 transition w-full px-7 py-3 rounded-lg',
+                    'relative flex items-center justify-start cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 duration-500 transition-all w-full px-2 group-hover:px-3 py-2 rounded-lg',
                     link.active
                       ? 'text-black dark:text-white'
                       : 'text-black/70 dark:text-white/70',
                   )}
                 >
-                  <link.icon size={29} />
-                  <div className='text-lg ml-6'>{link.label}</div>
+                  <link.icon />
+                  <div className='text-base ml-3 font-medium invisible group-hover:visible'>{link.label}</div>
                   {/* {link.active && (
                     <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-black dark:bg-white" />
                   )} */}
@@ -82,9 +83,20 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               ))}
             </VerticalIconContainer>
           </div>
-          <div className='flex flex-col gap-y-5 px-7'>
-            <LangSwitcher />
-            <ThemeSwitcher />
+          <div className='w-full transition-all duration-500 px-7'>
+            <div className='w-full invisible group-hover:visible'>
+              <Button 
+                className="w-full mb-3 py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
+              >
+                {t('side_bar.btn_login')}
+              </Button>
+              <div className='flex justify-around'>
+                <LangSwitcher />
+                <span>|</span>
+                <ThemeSwitcher />
+              </div>
+            </div>
+            <CircleUserRound className='cursor-pointer visible group-hover:invisible' />
           </div>
           {/* <Settings
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
