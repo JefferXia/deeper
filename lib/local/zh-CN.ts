@@ -10,12 +10,10 @@ export const zh = {
   },
   side_bar: {
     home_btn: '首页',
-    hot_btn: '爆款',
+    hot_btn: '创作灵感',
     ask_btn: '问AI',
-    dark_mode: '深色模式',
-    light_mode: '浅色模式',
-    cn_mode: '中文',
-    en_mode: '英文'
+    dark_mode: '深色主题',
+    light_mode: '浅色主题'
   },
   hot_page: {
     no_data: '没有热门视频',

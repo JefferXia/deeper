@@ -52,11 +52,14 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col">
-        <div className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary px-2 py-8">
-          <div className=''>
-            <a className='block mb-10 p-3 rounded-full bg-[#24A0ED]' href="/">
-              <Clapperboard className="cursor-pointer" />
+      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col hover:w-[230px] overflow-hidden transition-[width] duration-500 ease-in-out">
+        <div className="w-[230px] flex grow flex-col items-start justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary py-8">
+          <div className='w-full'>
+            <a className='flex items-center ml-[15px] mb-10' href="/">
+              <div className='flex justify-center items-center mr-[15px] w-[50px] h-[50px] rounded-full bg-[#24A0ED]'>
+                <Clapperboard />
+              </div>
+              <div className='text-2xl'>Top Mind</div>
             </a>
             <VerticalIconContainer>
               {navLinks.map((link, i) => (
@@ -64,24 +67,22 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                   key={i}
                   href={link.href}
                   className={cn(
-                    'relative flex flex-col items-center justify-center cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 duration-150 transition w-full py-2 rounded-lg',
+                    'relative flex items-center justify-start cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 duration-150 transition w-full px-7 py-3 rounded-lg',
                     link.active
                       ? 'text-black dark:text-white'
                       : 'text-black/70 dark:text-white/70',
                   )}
                 >
-                  <div>
-                    <link.icon />
-                  </div>
-                  <div className='text-xs mt-1'>{link.label}</div>
-                  {link.active && (
+                  <link.icon size={29} />
+                  <div className='text-lg ml-6'>{link.label}</div>
+                  {/* {link.active && (
                     <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-black dark:bg-white" />
-                  )}
+                  )} */}
                 </Link>
               ))}
             </VerticalIconContainer>
           </div>
-          <div className='flex flex-col gap-y-5'>
+          <div className='flex flex-col gap-y-5 px-7'>
             <LangSwitcher />
             <ThemeSwitcher />
           </div>

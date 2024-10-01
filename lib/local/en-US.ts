@@ -10,7 +10,7 @@ export const en = {
   },
   side_bar: {
     home_btn: 'Home',
-    hot_btn: 'Hot',
+    hot_btn: 'Inspiration',
     ask_btn: 'AIbot',
     dark_mode: 'Dark',
     light_mode: 'Light',
