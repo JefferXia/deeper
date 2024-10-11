@@ -469,65 +469,63 @@ export const FirebaseAuthFormComponent = ({
             {thirdPartyLoginPlatforms?.length &&
             pageState === PAGE_STATE.SIGN_IN ? (
               <>
-                <div key='tplc' className={styles.thirdPartyLoginContainer}>
-                  {thirdPartyLoginConfig.map((config, index) => {
-                    if (thirdPartyLoginPlatforms.includes(config.key)) {
-                      return (
-                        <>
-                          <Button
-                            className={cl(
-                              styles.thirdPartyItem,
-                              theme === 'dark' ? styles.darkThirdPartyLabel : ''
-                            )}
-                            key={index}
-                            onClick={() => handleThirdpartyLogin(config)}
-                            loading={getThirdPartyLoginLoading(config.key)}
-                          >
-                            <div
-                              className={styles.thirdPartyIcon}
-                              style={
-                                config.platform === 'Google'
-                                  ? {}
-                                  : { transform: 'scale(1.4)' }
-                              }
-                            >
-                              <img
-                                src={config.logo}
-                                alt={config.platform}
-                                className={styles.imgCls}
-                              />
-                            </div>
-                            <div className={styles.thirdPartyLabel}>
-                              {t('login.loginPlatform', {
-                                platform: config.platform
-                              })}
-                            </div>
-                          </Button>
+                {thirdPartyLoginConfig.map((config, index) => {
+                  if (thirdPartyLoginPlatforms.includes(config.key)) {
+                    return (
+                      <div key={config.key} className={styles.thirdPartyLoginContainer}>
+                        <Button
+                          className={cl(
+                            styles.thirdPartyItem,
+                            theme === 'dark' ? styles.darkThirdPartyLabel : ''
+                          )}
+                          key={index}
+                          onClick={() => handleThirdpartyLogin(config)}
+                          loading={getThirdPartyLoginLoading(config.key)}
+                        >
                           <div
-                            className={cl(
-                              styles.loginAgreement,
-                              theme === 'dark' ? styles.darkLoginAgreement : ''
-                            )}
+                            className={styles.thirdPartyIcon}
+                            style={
+                              config.platform === 'Google'
+                                ? {}
+                                : { transform: 'scale(1.4)' }
+                            }
                           >
-                            {t('login.loginTip')}{' '}
-                            <a
-                              href={agreements?.privacy}
-                              className="text-[#5d87ff]"
-                            >
-                              {t('login.privacyPolicy')}
-                            </a>{' '}
-                            {t('login.haveRead')}{' '}
-                            <a href={agreements?.term} className="text-[#5d87ff]">
-                              {t('login.termsOfUse')}
-                            </a>
+                            <img
+                              src={config.logo}
+                              alt={config.platform}
+                              className={styles.imgCls}
+                            />
                           </div>
-                        </>
-                      )
-                    } else {
-                      return null
-                    }
-                  })}
-                </div>
+                          <div className={styles.thirdPartyLabel}>
+                            {t('login.loginPlatform', {
+                              platform: config.platform
+                            })}
+                          </div>
+                        </Button>
+                        <div
+                          className={cl(
+                            styles.loginAgreement,
+                            theme === 'dark' ? styles.darkLoginAgreement : ''
+                          )}
+                        >
+                          {t('login.loginTip')}{' '}
+                          <a
+                            href={agreements?.privacy}
+                            className="text-[#5d87ff]"
+                          >
+                            {t('login.privacyPolicy')}
+                          </a>{' '}
+                          {t('login.haveRead')}{' '}
+                          <a href={agreements?.term} className="text-[#5d87ff]">
+                            {t('login.termsOfUse')}
+                          </a>
+                        </div>
+                      </div>
+                    )
+                  } else {
+                    return null
+                  }
+                })}
                 <Divider
                   plain
                   className={cl(

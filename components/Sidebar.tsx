@@ -19,7 +19,10 @@ import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogTrigger,
-  AlertDialogCancel
+  AlertDialogCancel,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription
 } from '@/components/ui/alert-dialog'
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
@@ -118,6 +121,10 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent className="p-0 w-auto overflow-hidden">
+                    <AlertDialogHeader className="hidden">
+                      <AlertDialogTitle>Login</AlertDialogTitle>
+                      <AlertDialogDescription></AlertDialogDescription>
+                    </AlertDialogHeader>
                     <AlertDialogCancel
                       className="absolute top-0 right-0 border-0 pt-4 hover:bg-none dark:bg-[#272727]"
                       onClick={() => setLoginModalOpen(false)}
