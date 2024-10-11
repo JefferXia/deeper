@@ -67,6 +67,9 @@ export const en = {
     focus_reddit_title: 'Reddit',
     focus_reddit_description: 'Search for discussions and opinions'
   },
+  login: {
+    signup_success_tip: 'registered successfully'
+  },
   error_info: {
     catch_error: 'An error occurred, please try again'
   }

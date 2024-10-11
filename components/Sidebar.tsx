@@ -10,7 +10,17 @@ import SettingsDialog from './SettingsDialog';
 import ThemeSwitcher from './theme/Switcher';
 import LangSwitcher from './theme/Lang';
 import { useTranslations } from 'use-intl'
+import { useTheme } from 'next-themes'
+import { useGlobalContext } from '@/app/globalcontext'
+import Login from "@/components/Login"
+import { X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger,
+  AlertDialogCancel
+} from '@/components/ui/alert-dialog'
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -23,6 +33,15 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const t = useTranslations();
+  const { theme } = useTheme()
+  const [currentTheme, setCurrentTheme] = useState(theme) 
+  const {
+    userInfo,
+    loginModalOpen,
+    setLoginModalOpen,
+    language,
+    setLanguage
+  } = useGlobalContext()
 
   const navLinks = [
     {
@@ -85,11 +104,40 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
           </div>
           <div className='w-full transition-all duration-500 px-7'>
             <div className='w-full invisible group-hover:visible'>
-              <Button 
-                className="w-full mb-3 py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
-              >
-                {t('side_bar.btn_login')}
-              </Button>
+              {/* 登录 */}
+              {!userInfo?.email ? (
+                <AlertDialog
+                  open={loginModalOpen}
+                  onOpenChange={setLoginModalOpen}
+                >
+                  <AlertDialogTrigger asChild>
+                    <Button 
+                      className="w-full mb-3 py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
+                    >
+                      {t('side_bar.btn_login')}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="p-0 w-auto overflow-hidden">
+                    <AlertDialogCancel
+                      className="absolute top-0 right-0 border-0 pt-4 hover:bg-none dark:bg-[#272727]"
+                      onClick={() => setLoginModalOpen(false)}
+                    >
+                      <X className="text-close-login" />
+                    </AlertDialogCancel>
+                    <Login 
+                      theme={currentTheme}
+                      darkMainColor={'#FF2E4D'}
+                      locale={language}
+                    />
+                  </AlertDialogContent>
+                </AlertDialog>
+              ) : (
+                <>
+                  <div className="w-px h-5 ml-4 mr-4 flex items-center justify-center max-md:hidden">
+                    <div className="w-px bg-current opacity-[0.2] h-full"></div>
+                  </div>
+                </>
+              )}
               <div className='flex justify-around'>
                 <LangSwitcher />
                 <span>|</span>

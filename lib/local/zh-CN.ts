@@ -67,6 +67,9 @@ export const zh = {
     focus_reddit_title: 'Reddit',
     focus_reddit_description: '找观点与热门话题'
   },
+  login: {
+    signup_success_tip: '注册成功！'
+  },
   error_info: {
     catch_error: '发生错误，请重试~'
   }

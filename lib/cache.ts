@@ -1,8 +1,8 @@
 import { LRUCache } from 'lru-cache'
 
 const cache = new LRUCache({
-  max: 200,
-  ttl: 1000 * 10,
+  max: 1000, // 最大缓存条数
+  ttl: 1000 * 60 * 60 * 24, // 过期时间，单位毫秒
 })
 
 export default cache
