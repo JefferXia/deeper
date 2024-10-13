@@ -363,9 +363,9 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
     try {
       await sendPasswordResetEmail(auth, email);
       // 密码重置邮件已发送
-      console.log(
-        `[${projectName} Firebase] Password reset email sent successfully.`,
-      );
+      // console.log(
+      //   `[${projectName} Firebase] Password reset email sent successfully.`,
+      // );
       // 这里可以在组件中添加成功发送邮件之后的逻辑，比如更新UI或通知用户
     } catch (error) {
       // 发送邮件失败，处理错误
@@ -388,9 +388,9 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
       if (user) {
         await sendEmailVerification(user);
         // 邮箱验证邮件已发送
-        console.log(
-          `[${projectName} Firebase] Verification email sent successfully.`,
-        );
+        // console.log(
+        //   `[${projectName} Firebase] Verification email sent successfully.`,
+        // );
         // 这里可以在组件中添加成功发送邮件之后的逻辑，比如更新UI或通知用户
       }
     } catch (error) {

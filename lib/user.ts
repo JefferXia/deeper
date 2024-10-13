@@ -13,7 +13,7 @@ export interface UserInfo {
   picture?: string
 } 
 export async function saveUser(token: string, user: UserInfo) {
-  cache.set(`user:token:${token}`, user)
+  cache.set(`user:token:${token}`, JSON.stringify(user))
   // const dateTime = getUTC8ISOString()
   // await kysely
   //   .insertInto('User')
@@ -41,30 +41,30 @@ export async function getUser(token?: string) {
     userToken = cookieStore.get('firebaseToken')?.value
 
     if (userToken) {
-      const userInfo = await cache.get(`user:token:${userToken}`)
+      const userInfo:any = cache.get(`user:token:${userToken}`)
       if (userInfo) {
-        return userInfo as UserInfo
+        return JSON.parse(userInfo) as UserInfo
       }
     }
 
-    const anonymousToken = cookieStore.get('anonymousToken')?.value
-    if (anonymousToken) {
-      try {
-        return {
-          uid: decrypt(anonymousToken),
-        }
-      } catch (e) {
-        console.error(e)
-        token = anonymousToken
-      }
-    }
+    // const anonymousToken = cookieStore.get('anonymousToken')?.value
+    // if (anonymousToken) {
+    //   try {
+    //     return {
+    //       uid: decrypt(anonymousToken),
+    //     }
+    //   } catch (e) {
+    //     console.error(e)
+    //     token = anonymousToken
+    //   }
+    // }
   }
 
-  console.log('userToken', userToken)
+  // console.log('userToken', userToken)
 
   if (!userToken) return { uid: 'anonymous' }
 
-  const userInfo = await cache.get(`user:token:${userToken}`) ?? { uid: 'anonymous' }
+  const userInfo = cache.get(`user:token:${userToken}`) ?? { uid: 'anonymous' }
 
   return userInfo as UserInfo
 }

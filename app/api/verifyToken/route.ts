@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   }
 
   const token = authHeader.split(' ')[1];
-
+  
   try {
     const userInfo: UserInfo = await admin.auth().verifyIdToken(token);
 

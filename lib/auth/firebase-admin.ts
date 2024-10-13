@@ -23,12 +23,12 @@ export const getUserByToken = async (token?: string) => {
     const cookieStore = cookies();
     idToken = cookieStore.get('firebaseToken')?.value;
 
-    if (!idToken) {
-      const anonymousToken = cookieStore.get('anonymousToken')?.value;
-      if (anonymousToken) {
-        return { uid: decrypt(anonymousToken) };
-      }
-    }
+    // if (!idToken) {
+    //   const anonymousToken = cookieStore.get('anonymousToken')?.value;
+    //   if (anonymousToken) {
+    //     return { uid: decrypt(anonymousToken) };
+    //   }
+    // }
   }
 
   if (!idToken) {

@@ -3,17 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  .dark .markmap-foreign {
-    color: #fff !important;
-  }
-  .overflow-hidden-scrollable {
-    -ms-overflow-style: none;
-  }
-
-  .overflow-hidden-scrollable::-webkit-scrollbar {
-    display: none;
-  }
-
   :root {
     /* --markmap-circle-open-bg: #ffffff; */
     --background: 0 0% 100%;
@@ -127,4 +116,21 @@
       width: 37px;
     }
   }
+}
+
+.dark .markmap-foreign {
+  color: #fff !important;
+}
+.overflow-hidden-scrollable {
+  -ms-overflow-style: none;
+}
+
+.overflow-hidden-scrollable::-webkit-scrollbar {
+  display: none;
+}
+#darkAuthInput::placeholder {
+  color: #999;
+}
+#confirmPasswordWrapper::placeholder {
+  color: #999;
 }

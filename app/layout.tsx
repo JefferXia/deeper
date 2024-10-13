@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { getUser } from '@/lib/user';
 import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
@@ -21,17 +22,19 @@ export const metadata: Metadata = {
     'TopMind is an AI powered chatbot that can help you create popular videos.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userInfo = await getUser();
+  console.log(userInfo)
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
       <body className={cn('h-full', montserrat.className)}>
         <GoogleAnalytics gaId="G-DDJKD745FB" />
         <ThemeProvider>
-          <GlobalContextProvider>
+          <GlobalContextProvider userInfo={userInfo}>
             <Sidebar>{children}</Sidebar>
             <Toaster
               position="bottom-center"

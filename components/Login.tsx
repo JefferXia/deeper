@@ -26,11 +26,6 @@ async function tokenVerification(
   })
 }
 
-// const agreements = {
-//   terms: '/terms',
-//   privacy: '/privacy'
-// }
-// pageState, thirdPartyLoginConfig, isError, onThirdPartyLoginSuccess, onThirdPartyLoginError, onLoginSuccess, onLoginError, onSignupSuccess, onSignupError, onLinkToForgotPassword, onLinkToLogin, onLinkToSignup, handleInviteCodeVerify, verifyInviteCodeLoading, logo, agreements, thirdPartyLoginPlatforms,
 const Login = (props: LoginProps) => {
   const { theme, darkMainColor, locale } = props
   const pathname = usePathname()
@@ -75,14 +70,14 @@ const Login = (props: LoginProps) => {
             setCurrentState(PAGE_STATE.SIGN_UP)
           }}
           onThirdPartyLoginSuccess={async data => {
-            await fetch('/api/bindAnonymousToken', { method: 'POST' })
+            // await fetch('/api/bindAnonymousToken', { method: 'POST' })
             window.location.reload()
           }}
           onThirdPartyLoginError={err => {
             console.log('ThirdPartyLoginError', err)
           }}
           onLoginSuccess={async data => {
-            await fetch('/api/bindAnonymousToken', { method: 'POST' })
+            // await fetch('/api/bindAnonymousToken', { method: 'POST' })
             window.location.reload()
           }}
           onLoginError={err => {
@@ -92,7 +87,7 @@ const Login = (props: LoginProps) => {
             toast.success(
               t('login.signup_success_tip'),
             );
-            await fetch('/api/bindAnonymousToken', { method: 'POST' })
+            // await fetch('/api/bindAnonymousToken', { method: 'POST' })
             setCurrentState(PAGE_STATE.SIGN_IN)
           }}
           onSignupError={err => {
