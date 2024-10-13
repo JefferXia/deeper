@@ -14,7 +14,10 @@ export const zh = {
     ask_btn: '问AI',
     dark_mode: '深色主题',
     light_mode: '浅色主题',
-    btn_login: '登录 / 注册'
+    btn_login: '登录 / 注册',
+    upgrade: '升级VIP',
+    credits_label: '账户余额：',
+    credits_unit: '代币'
   },
   hot_page: {
     no_data: '没有热门视频',
@@ -68,7 +71,8 @@ export const zh = {
     focus_reddit_description: '找观点与热门话题'
   },
   login: {
-    signup_success_tip: '注册成功！'
+    signup_success_tip: '注册成功！',
+    signout_txt: '退出登录'
   },
   error_info: {
     catch_error: '发生错误，请重试~'

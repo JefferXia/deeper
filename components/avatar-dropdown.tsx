@@ -64,9 +64,9 @@ export function AvatarDropdown(props: AvatarDropdownProps) {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={signOut}
-            className="bg-avatar-dropdown py-2 pl-5 cursor-pointer dark:bg-black border-t border-avatar-dropdown dark:border-avatar-dropdown-dark-bg max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
+            className="py-2 pl-5 cursor-pointer border-t border-avatar-dropdown dark:border-avatar-dropdown-dark-bg max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
           >
-            {t('xanswer.sign_out')}
+            {t('login.signout_txt')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

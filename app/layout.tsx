@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import cache from '@/lib/cache';
 import { getUser } from '@/lib/user';
 import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
@@ -21,14 +22,14 @@ export const metadata: Metadata = {
   description:
     'TopMind is an AI powered chatbot that can help you create popular videos.',
 };
-
+// cache.set(`user:token:test`, JSON.stringify({uid:'test',name:'test',email:'test@126.com',picture:''}))
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const userInfo = await getUser();
-  console.log(userInfo)
+
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
       <body className={cn('h-full', montserrat.className)}>

@@ -64,7 +64,6 @@ export async function getUser(token?: string) {
 
   if (!userToken) return { uid: 'anonymous' }
 
-  const userInfo = cache.get(`user:token:${userToken}`) ?? { uid: 'anonymous' }
-
-  return userInfo as UserInfo
+  const cacheUserInfo:any = cache.get(`user:token:${userToken}`) ?? JSON.stringify({ uid: 'anonymous' })
+  return JSON.parse(cacheUserInfo) as UserInfo
 }

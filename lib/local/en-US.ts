@@ -14,7 +14,10 @@ export const en = {
     ask_btn: 'AIbot',
     dark_mode: 'Dark',
     light_mode: 'Light',
-    btn_login: 'Log In / Register'
+    btn_login: 'Log In / Register',
+    upgrade: 'Upgrade',
+    credits_label: 'Account: ',
+    credits_unit: 'credits'
   },
   hot_page: {
     no_data: 'No data~',
@@ -68,7 +71,8 @@ export const en = {
     focus_reddit_description: 'Search for discussions and opinions'
   },
   login: {
-    signup_success_tip: 'registered successfully'
+    signup_success_tip: 'registered successfully',
+    signout_txt: 'Sign Out'
   },
   error_info: {
     catch_error: 'An error occurred, please try again'

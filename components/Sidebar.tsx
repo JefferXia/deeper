@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { BotMessageSquare, FileVideo, Sparkles, CircleUserRound, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
+import { Crown, BotMessageSquare, FileVideo, Sparkles, CircleUserRound, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
@@ -141,7 +141,20 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                 </AlertDialog>
               ) : (
                 <>
-                  <AvatarDropdown />
+                  <div className='flex justify-around items-center mb-2'>
+                    <AvatarDropdown />
+                    <p className='text-xs'>
+                      {t('side_bar.credits_label')}
+                      <span>10</span>
+                      {t('side_bar.credits_unit')}
+                    </p>
+                  </div>
+                  <Button 
+                    className="w-full mb-3 py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
+                  >
+                    <Crown className="text-[#F8da51] mr-2 h-4 w-4" />
+                    {t('side_bar.upgrade')}
+                  </Button>
                 </>
               )}
               <div className='flex justify-around'>

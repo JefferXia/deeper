@@ -85,7 +85,11 @@ const config: Config = {
             '3': 'hsl(var(--chart-3))',
             '4': 'hsl(var(--chart-4))',
             '5': 'hsl(var(--chart-5))'
-          }
+          },
+          'avatar-dropdown': '#f5f5f5',
+          'avatar-dropdown-bg': '#FFE1E5',
+          'avatar-dropdown-dark-bg': '#2b2b2b',
+          'mobile-dark-header-dropdown': '#202020',
         };
       },
       spacing: {
