@@ -13,6 +13,7 @@ import { useTranslations } from 'use-intl'
 import { useTheme } from 'next-themes'
 import { useGlobalContext } from '@/app/globalcontext'
 import Login from "@/components/Login"
+import { AvatarDropdown } from './avatar-dropdown'
 import { X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import {
@@ -140,9 +141,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                 </AlertDialog>
               ) : (
                 <>
-                  <div className="w-px h-5 ml-4 mr-4 flex items-center justify-center max-md:hidden">
-                    <div className="w-px bg-current opacity-[0.2] h-full"></div>
-                  </div>
+                  <AvatarDropdown />
                 </>
               )}
               <div className='flex justify-around'>

@@ -27,3 +27,18 @@ export const formatTimeDifference = (
   else
     return `${Math.floor(diffInSeconds / 31536000)} year${Math.floor(diffInSeconds / 31536000) !== 1 ? 's' : ''}`;
 };
+
+// 拿到一个字符串，并获取首字母大写
+export function getFirstLetterAndUpperCase(str: string) {
+  if (str && typeof str === 'string') {
+    return str.charAt(0).toUpperCase()
+  }
+  return ''
+}
+
+export const isMobileDeviceFn = () => {
+  if (typeof navigator !== 'undefined') {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  }
+  return false
+}
