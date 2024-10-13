@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import fs from "node:fs/promises";
 // import { useTecentAsr } from "@/lib/asr";
 // import cosUpload from "@/lib/uploadFile"
-const ffmpeg: any = require('fluent-ffmpeg');
+// const ffmpeg: any = require('fluent-ffmpeg');
 // const pathToFfmpeg: any = require("ffmpeg-static");
 
 export async function POST(req: Request) {
