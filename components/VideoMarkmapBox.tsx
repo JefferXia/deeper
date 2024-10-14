@@ -4,19 +4,13 @@ import Image from 'next/image';
 // import { createPortal } from 'react-dom'
 import { Button } from "@/components/ui/button"
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import {
   Dialog,
   DialogContent,
   DialogTrigger,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { ImageDown, Maximize, Minimize } from 'lucide-react'
+import { Maximize, Minimize } from 'lucide-react'
 import MarkmapHooks from '@/components/markmap/markmap-hooks'
 
 const VideoMarkmapBox = ({ markmapData }: { markmapData?: string }) => {
@@ -43,20 +37,7 @@ const VideoMarkmapBox = ({ markmapData }: { markmapData?: string }) => {
       ) : (
         <>
           <MarkmapHooks data={markmapData} />
-          <div className='absolute right-4 bottom-4 space-x-2'>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <ImageDown size={20} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className='max-w-xs'>
-                  <p>下载图片</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            
+          <div className='absolute right-16 bottom-4'>           
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="icon">
@@ -68,7 +49,6 @@ const VideoMarkmapBox = ({ markmapData }: { markmapData?: string }) => {
                 <MarkmapHooks data={markmapData} />
               </DialogContent>
             </Dialog>
-            
           </div>
         </>
       )} 

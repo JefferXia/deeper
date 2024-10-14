@@ -2,6 +2,16 @@
 import React, { useRef, useEffect, useCallback } from 'react'
 import { Markmap } from 'markmap-view'
 import { transformer } from './markmap'
+import * as htmlToImage from 'html-to-image'
+import { saveAs } from 'file-saver'
+import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { ImageDown } from 'lucide-react'
 
 export default function MarkmapHooks({
   data
@@ -36,6 +46,12 @@ export default function MarkmapHooks({
     mm.fit()
   }, [refMm.current, data])
 
+  // 下载
+  const onSave = async () => {
+    const dataUrl = await htmlToImage.toPng(refSvg.current)
+    saveAs(dataUrl, 'mindmap.png')
+  }
+
   return (
     <div
       className='w-full h-full relative dark:text-white'
@@ -44,6 +60,20 @@ export default function MarkmapHooks({
         className='w-full h-full'
         ref={refSvg}
       />
+      <div className='absolute right-4 bottom-4'>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="icon" onClick={onSave}>
+                <ImageDown size={20} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className='max-w-xs'>
+              <p>下载图片</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </div>
   )
 }
