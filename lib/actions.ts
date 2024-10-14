@@ -46,7 +46,7 @@ export const getSummary = async (id: string, query: string, chatHisory: Message[
   return null
 };
 
-export const downloadUrl = async (url: string) => {
+export const downloadUrl = async (url: string, userId: string) => {
   let api = `${process.env.NEXT_PUBLIC_API_URL}/ytdownload`;
   if(url.includes('douyin.com')) {
     api = `${process.env.NEXT_PUBLIC_API_URL}/dydownload`;
@@ -58,6 +58,7 @@ export const downloadUrl = async (url: string) => {
     },
     body: JSON.stringify({
       url,
+      userId
     }),
   });
 

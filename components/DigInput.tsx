@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { downloadUrl } from '@/lib/actions'
 import { ArrowRight, CloudUpload, LoaderCircle } from 'lucide-react'
 import { useTranslations } from 'use-intl'
+import { useGlobalContext } from '@/app/globalcontext'
 
 const DigInput = () => {
   const [loading, setLoading] = useState(false);
@@ -15,15 +16,23 @@ const DigInput = () => {
   const router = useRouter();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const t = useTranslations();
+  const {
+    userInfo,
+    setLoginModalOpen
+  } = useGlobalContext()
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
   const handleDownload = async(theUrl:string) => {
+    if(!userInfo) {
+      setLoginModalOpen(true)
+      return
+    }
     setLoading(true)
     try {
-      const response = await downloadUrl(theUrl)
+      const response = await downloadUrl(theUrl, userInfo?.uid)
       if(response?.id) {
         router.push(`/video-analysis/${response.id}?first=yes`);
       } else {
@@ -57,6 +66,10 @@ const DigInput = () => {
   }
 
   const handleFileChange = async(event: any) => {
+    if(!userInfo) {
+      setLoginModalOpen(true)
+      return
+    }
     const file = event.target.files[0];
     if (file && file.type.startsWith("video/")) {
       setLoading(true)
