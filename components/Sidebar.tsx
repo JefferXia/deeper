@@ -127,7 +127,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                       <AlertDialogDescription></AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogCancel
-                      className="absolute top-0 right-0 border-0 pt-4 hover:bg-none dark:bg-[#272727]"
+                      className="absolute top-0 right-0 border-0 pt-4 hover:bg-none dark:bg-[#272727] focus-visible:ring-0 focus-visible:outline-none focus-visible:ring-offset-0"
                       onClick={() => setLoginModalOpen(false)}
                     >
                       <X className="text-close-login" />
