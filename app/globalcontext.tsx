@@ -13,12 +13,8 @@ import { IntlProvider } from 'use-intl'
 import { en } from '@/lib/local/en-US'
 import { zh } from '@/lib/local/zh-CN'
 import useLanguage from '@/lib/hooks/useLanguage'
-interface UserInfo {
-  uid: string
-  name?: string
-  email?: string
-  picture?: string
-}
+import { UserInfo } from '@/lib/user'
+
 const GlobalContext = createContext<any>({})
 export const useGlobalContext = () => useContext<any>(GlobalContext)
 

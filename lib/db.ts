@@ -20,7 +20,17 @@ export async function createUser(user: UserInfo) {
   const dateTime = new Date()
   const { uid, ...rest } = user;
   const newUser = { id: uid, ...rest, updatedAt: dateTime, createdAt: dateTime }
-  if (!existingUser) {
+  if (existingUser) {
+    const accountInfo = await prisma.account.findFirst({
+      where: {
+        userId: uid,
+      }
+    });
+    return {
+      ...user,
+      account: accountInfo
+    }
+  } else {
     await prisma.user.create({
       data: newUser
     })
@@ -42,9 +52,30 @@ export async function createUser(user: UserInfo) {
     })
 
     return {
-      ...newUser,
-      account,
-      gift: giftRecord
+      ...user,
+      account
+      // gift: giftRecord
+    }
+  }
+}
+export async function findUser(userId: string) {
+  const user:any = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      phone: true,
+      email: true,
+      accounts: true,
+    },
+  })
+  if(user) {
+    const { id, ...rest } = user
+    return {
+      uid: id,
+      ...rest
     }
   }
 }

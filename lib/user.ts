@@ -2,8 +2,8 @@
 
 import cache from '@/lib/cache';
 import { cookies } from 'next/headers';
-import { createUser } from '@/lib/db'
-import { decrypt } from "./cookie";
+import { createUser, findUser } from '@/lib/db'
+import { getUserByToken } from '@/lib/auth/firebase-admin';
 
 export interface UserInfo {
   uid: string
@@ -11,6 +11,7 @@ export interface UserInfo {
   phone?: string
   email?: string
   picture?: string
+  accounts?: any
 } 
 export async function saveUser(token: string, user: UserInfo) {
   await createUser(user)
@@ -23,34 +24,20 @@ export async function getUser(token?: string) {
   if (!userToken) {
     const cookieStore = cookies()
     userToken = cookieStore.get('firebaseToken')?.value
+  }
 
-    if (userToken) {
-      const userInfo:any = cache.get(`user:token:${userToken}`)
-      if (userInfo) {
-        return JSON.parse(userInfo) as UserInfo
-      }
+  if (userToken) {
+    const userInfo:any = cache.get(`user:token:${userToken}`)
+    if (userInfo) {
+      return JSON.parse(userInfo) as UserInfo
     }
 
-    // const anonymousToken = cookieStore.get('anonymousToken')?.value
-    // if (anonymousToken) {
-    //   try {
-    //     return {
-    //       uid: decrypt(anonymousToken),
-    //     }
-    //   } catch (e) {
-    //     console.error(e)
-    //     token = anonymousToken
-    //   }
-    // }
+    // 通过firebase admin校验cookie
+    const verifyUserInfo = await getUserByToken(userToken)
+    if(verifyUserInfo?.id) {
+      const userData = await findUser(verifyUserInfo.id)
+      cache.set(`user:token:${userToken}`, JSON.stringify(userData))
+      return userData
+    }
   }
-
-  // console.log('userToken', userToken)
-
-  // if (!userToken) return undefined
-
-  const cacheUserInfo:any = cache.get(`user:token:${userToken}`)
-  if(cacheUserInfo) {
-    return JSON.parse(cacheUserInfo) as UserInfo
-  }
-  // return undefined
 }
