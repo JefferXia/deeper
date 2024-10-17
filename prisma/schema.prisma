@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {                // 只记录注册用户
+  id        String   @id @default(uuid())
+  name      String?
+  phone     String?
+  email     String?
+  picture   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  attributes  Json?         // 扩展字段，可用于存储用户的额外信息
+  accounts  Account[]       // 用户与账户的关系
+}
+
+model Account {
+  id              Int      @id @default(autoincrement())   // 账户ID，自增主键
+  userId          String                                   // 外键，关联用户
+  totalBalance    Decimal   @default(0.00)                 // 总余额，包括所有代币
+  giftTokens      Decimal   @default(0.00)                 // 赠送代币余额
+  rechargeTokens  Decimal   @default(0.00)                 // 充值代币余额
+  earnedTokens    Decimal   @default(0.00)                 // 赚取的代币余额
+  createdAt       DateTime  @default(now())                // 创建时间
+  updatedAt       DateTime  @updatedAt                     // 更新时间
+  grade           String    @default("ORDINARY")           // 会员等级（ORDINARY、VIP、SVIP）
+  user            User     @relation(fields: [userId], references: [id]) // 与用户的关系
+  gifts           GiftRecord[]
+  recharges       RechargeRecord[]
+  transactions    TransactionRecord[]
+}
+
+model GiftRecord {
+  id              Int      @id @default(autoincrement()) // 赠送记录ID，自增主键
+  accountId       Int                                       // 外键，关联账户
+  amount          Decimal                                   // 赠送的代币数量
+  createdAt       DateTime @default(now())                 // 创建时间
+  type            String
+  account         Account   @relation(fields: [accountId], references: [id]) // 与账户的关系
+}
+
+model RechargeRecord {
+  id              Int      @id @default(autoincrement())
+  accountId       Int
+  amount          Decimal
+  createdAt       DateTime @default(now())
+  orderNumber     String   @unique                        // 订单号，唯一
+  source          String                                  // 充值来源（如：支付宝、微信、银行卡等）
+  status          String   @default("PENDING")            // 充值状态（如：PENDING, COMPLETED, FAILED）
+  account         Account   @relation(fields: [accountId], references: [id]) // 与账户的关系
+}
+
+model TransactionRecord {
+  id             Int      @id @default(autoincrement())
+  accountId      Int
+  amount         Decimal
+  createdAt      DateTime @default(now())
+  type           String
+  account        Account   @relation(fields: [accountId], references: [id]) // 与账户的关系
+}
+
+generator kysely {
+  provider = "prisma-kysely"
+
+  // Optionally provide a destination directory for the generated file
+  // and a filename of your choice
+  output = "../kysely"
+  fileName = "types.ts"
+  // Optionally generate runtime enums to a separate file
+  // enumFileName = "enums.ts"
+}

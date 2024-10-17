@@ -2,35 +2,19 @@
 
 import cache from '@/lib/cache';
 import { cookies } from 'next/headers';
-// import kysely from '@/kysely/db'
-// import { getUTC8ISOString } from '@/lib/utils'
+import { createUser } from '@/lib/db'
 import { decrypt } from "./cookie";
 
 export interface UserInfo {
   uid: string
   name?: string
+  phone?: string
   email?: string
   picture?: string
 } 
 export async function saveUser(token: string, user: UserInfo) {
+  await createUser(user)
   cache.set(`user:token:${token}`, JSON.stringify(user))
-  // const dateTime = getUTC8ISOString()
-  // await kysely
-  //   .insertInto('User')
-  //   .values({
-  //     id: user.uid,
-  //     email: user.email,
-  //     name: user.name,
-  //     picture: user.picture,
-  //     updatedAt: dateTime,
-  //     createdAt: dateTime
-  //   })
-  //   .onConflict((oc) => {
-  //     return oc
-  //       .column('id')
-  //       .doNothing()
-  //   })
-  //   .executeTakeFirst()
 }
 
 export async function getUser(token?: string) {
