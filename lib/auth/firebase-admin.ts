@@ -30,7 +30,6 @@ export const getUserByToken = async (token?: string) => {
 
   try {
     const decodedClaims = await admin.auth().verifySessionCookie(sessionCookie, true);
-    console.log('verifySessionCookie', decodedClaims)
     return decodedClaims;
   } catch (error) {
     return;

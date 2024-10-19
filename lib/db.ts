@@ -28,7 +28,12 @@ export async function createUser(user: UserInfo) {
     });
     return {
       ...user,
-      account: accountInfo
+      accountId: accountInfo?.id,
+      totalBalance: accountInfo?.totalBalance.toNumber(),
+      giftTokens: accountInfo?.giftTokens.toNumber(),
+      rechargeTokens: accountInfo?.rechargeTokens.toNumber(),
+      earnedTokens: accountInfo?.earnedTokens.toNumber(),
+      grade: accountInfo?.grade
     }
   } else {
     await prisma.user.create({
@@ -53,7 +58,12 @@ export async function createUser(user: UserInfo) {
 
     return {
       ...user,
-      account
+      accountId: account?.id,
+      totalBalance: account?.totalBalance.toNumber(),
+      giftTokens: account?.giftTokens.toNumber(),
+      rechargeTokens: account?.rechargeTokens.toNumber(),
+      earnedTokens: account?.earnedTokens.toNumber(),
+      grade: account?.grade
       // gift: giftRecord
     }
   }
@@ -72,10 +82,16 @@ export async function findUser(userId: string) {
     },
   })
   if(user) {
-    const { id, ...rest } = user
+    const { id, accounts, ...rest } = user
     return {
       uid: id,
-      ...rest
+      ...rest,
+      accountId: accounts[0]?.id,
+      totalBalance: accounts[0]?.totalBalance.toNumber(),
+      giftTokens: accounts[0]?.giftTokens.toNumber(),
+      rechargeTokens: accounts[0]?.rechargeTokens.toNumber(),
+      earnedTokens: accounts[0]?.earnedTokens.toNumber(),
+      grade: accounts[0]?.grade
     }
   }
 }

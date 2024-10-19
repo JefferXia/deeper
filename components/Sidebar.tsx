@@ -7,24 +7,7 @@ import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
 import Layout from './Layout';
 import SettingsDialog from './SettingsDialog';
-import ThemeSwitcher from './theme/Switcher';
-import LangSwitcher from './theme/Lang';
 import { useTranslations } from 'use-intl'
-import { useTheme } from 'next-themes'
-import { useGlobalContext } from '@/app/globalcontext'
-import Login from "@/components/Login"
-import { AvatarDropdown } from './avatar-dropdown'
-import { X } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogCancel,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription
-} from '@/components/ui/alert-dialog'
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -37,15 +20,6 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const t = useTranslations();
-  const { theme } = useTheme()
-  const [currentTheme, setCurrentTheme] = useState(theme) 
-  const {
-    userInfo,
-    loginModalOpen,
-    setLoginModalOpen,
-    language,
-    setLanguage
-  } = useGlobalContext()
 
   const navLinks = [
     {
@@ -107,62 +81,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
             </VerticalIconContainer>
           </div>
           <div className='w-full transition-all duration-500 px-7'>
-            <div className='w-full invisible group-hover:visible'>
-              {/* 登录 */}
-              {!userInfo?.email ? (
-                <AlertDialog
-                  open={loginModalOpen}
-                  onOpenChange={setLoginModalOpen}
-                >
-                  <AlertDialogTrigger asChild>
-                    <Button 
-                      className="w-full mb-3 py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
-                    >
-                      {t('side_bar.btn_login')}
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent className="p-0 w-auto overflow-hidden">
-                    <AlertDialogHeader className="hidden">
-                      <AlertDialogTitle>Login</AlertDialogTitle>
-                      <AlertDialogDescription></AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogCancel
-                      className="absolute top-0 right-0 border-0 pt-4 hover:bg-none dark:bg-[#272727] focus-visible:ring-0 focus-visible:outline-none focus-visible:ring-offset-0"
-                      onClick={() => setLoginModalOpen(false)}
-                    >
-                      <X className="text-close-login" />
-                    </AlertDialogCancel>
-                    <Login 
-                      theme={currentTheme}
-                      darkMainColor={'#FF2E4D'}
-                      locale={language}
-                    />
-                  </AlertDialogContent>
-                </AlertDialog>
-              ) : (
-                <>
-                  <div className='flex justify-around items-center mb-2'>
-                    <AvatarDropdown />
-                    <p className='text-xs'>
-                      {t('side_bar.credits_label')}
-                      <span>10</span>
-                      {t('side_bar.credits_unit')}
-                    </p>
-                  </div>
-                  <Button 
-                    className="w-full mb-3 py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
-                  >
-                    <Crown className="text-[#F8da51] mr-2 h-4 w-4" />
-                    {t('side_bar.upgrade')}
-                  </Button>
-                </>
-              )}
-              <div className='flex justify-around'>
-                <LangSwitcher />
-                <span>|</span>
-                <ThemeSwitcher />
-              </div>
-            </div>
+            
             <CircleUserRound className='cursor-pointer visible group-hover:invisible' />
           </div>
           {/* <Settings

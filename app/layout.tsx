@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import cache from '@/lib/cache';
 import { getUser } from '@/lib/user';
+import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
@@ -36,6 +37,7 @@ export default async function RootLayout({
         <GoogleAnalytics gaId="G-DDJKD745FB" />
         <ThemeProvider>
           <GlobalContextProvider userInfo={userInfo}>
+            <Header />
             <Sidebar>{children}</Sidebar>
             <Toaster
               position="bottom-center"
