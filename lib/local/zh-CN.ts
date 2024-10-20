@@ -15,10 +15,12 @@ export const zh = {
     dark_mode: '深色主题',
     light_mode: '浅色主题',
     btn_login: '登录 / 注册',
-    upgrade: '升级VIP',
-    credits_label: '账户余额：',
-    credits_unit: '代币',
     join_group: '加入群聊'
+  },
+  profile: {
+    upgrade: '开通会员',
+    credits_label: '账户余额：',
+    credits_unit: '积分'
   },
   hot_page: {
     no_data: '没有热门视频',

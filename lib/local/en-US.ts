@@ -15,10 +15,12 @@ export const en = {
     dark_mode: 'Dark',
     light_mode: 'Light',
     btn_login: 'Log In / Register',
+    join_group: 'Join chat group'
+  },
+  profile: {
     upgrade: 'Upgrade',
     credits_label: 'Account: ',
-    credits_unit: 'credits',
-    join_group: 'Join chat group'
+    credits_unit: 'credits'
   },
   hot_page: {
     no_data: 'No data~',

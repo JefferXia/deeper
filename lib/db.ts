@@ -33,7 +33,8 @@ export async function createUser(user: UserInfo) {
       giftTokens: accountInfo?.giftTokens.toNumber(),
       rechargeTokens: accountInfo?.rechargeTokens.toNumber(),
       earnedTokens: accountInfo?.earnedTokens.toNumber(),
-      grade: accountInfo?.grade
+      grade: accountInfo?.grade,
+      createdAt: new Date(existingUser.createdAt).toLocaleString()
     }
   } else {
     await prisma.user.create({
@@ -63,8 +64,8 @@ export async function createUser(user: UserInfo) {
       giftTokens: account?.giftTokens.toNumber(),
       rechargeTokens: account?.rechargeTokens.toNumber(),
       earnedTokens: account?.earnedTokens.toNumber(),
-      grade: account?.grade
-      // gift: giftRecord
+      grade: account?.grade,
+      createdAt: new Date(account.createdAt).toLocaleString()
     }
   }
 }
@@ -78,11 +79,12 @@ export async function findUser(userId: string) {
       name: true,
       phone: true,
       email: true,
+      createdAt: true,
       accounts: true,
     },
   })
   if(user) {
-    const { id, accounts, ...rest } = user
+    const { id, createdAt, accounts, ...rest } = user
     return {
       uid: id,
       ...rest,
@@ -91,7 +93,8 @@ export async function findUser(userId: string) {
       giftTokens: accounts[0]?.giftTokens.toNumber(),
       rechargeTokens: accounts[0]?.rechargeTokens.toNumber(),
       earnedTokens: accounts[0]?.earnedTokens.toNumber(),
-      grade: accounts[0]?.grade
+      grade: accounts[0]?.grade,
+      createdAt: new Date(createdAt).toLocaleString()
     }
   }
 }

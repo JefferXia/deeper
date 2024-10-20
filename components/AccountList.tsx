@@ -31,7 +31,8 @@ export function AccountList({ list }: ListProps) {
   useEffect(() => {}, []);
 
   return (
-    <div className="pt-5">
+    <div className="mt-7">
+      <h2 className='mb-3 text-xl font-bold'>积分收支明细</h2>
       <Table>
         <TableHeader>
           <TableRow>

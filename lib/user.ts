@@ -11,7 +11,13 @@ export interface UserInfo {
   phone?: string
   email?: string
   picture?: string
-  accounts?: any
+  accountId?: number,
+  totalBalance?: number,
+  giftTokens?: number,
+  rechargeTokens?: number,
+  earnedTokens?: number,
+  grade?: string,
+  createdAt?: string
 } 
 export async function saveUser(token: string, user: UserInfo) {
   const savedUserInfo = await createUser(user)
@@ -33,11 +39,11 @@ export async function getUser(token?: string) {
     }
 
     // 通过firebase admin校验cookie
-    // const verifyUserInfo = await getUserByToken(userToken)
-    const verifyUserInfo = {uid: '2ytccNlZeHPagrXIMafT3pi77lZ2', email: 'yuefilm@126.com'}
+    const verifyUserInfo = await getUserByToken(userToken)
+    // const verifyUserInfo = {uid: 'utest1'};
 
-    if(verifyUserInfo?.uid) {
-      const userData = await findUser(verifyUserInfo.uid)
+    if(verifyUserInfo) {
+      const userData = await findUser(verifyUserInfo?.uid)
       cache.set(`user:token:${userToken}`, JSON.stringify(userData))
       return userData
     }

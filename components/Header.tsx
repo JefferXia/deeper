@@ -73,20 +73,7 @@ const Header = () => {
             </AlertDialogContent>
           </AlertDialog>
         ) : (
-          <>
-              {/* <p className='text-xs'>
-                {t('side_bar.credits_label')}
-                <span>{userInfo.totalBalance}</span>
-                {t('side_bar.credits_unit')}
-              </p> */}
-            <AvatarDropdown />
-            {/* <Button 
-              className="py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
-            >
-              <Crown className="text-[#F8da51] mr-2 h-4 w-4" />
-              {t('side_bar.upgrade')}
-            </Button> */}
-          </>
+          <AvatarDropdown />
         )}
       </div>
     </header>
