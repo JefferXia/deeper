@@ -3,6 +3,7 @@ import React, { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { getFirstLetterAndUpperCase } from '@/lib/utils'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -61,6 +62,13 @@ export function AvatarDropdown(props: AvatarDropdownProps) {
               </span>
               <span>{userInfo?.email}</span>
             </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="py-0 pl-5 border-t border-avatar-dropdown dark:border-avatar-dropdown-dark-bg max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
+          >
+            <Link href="/profile" className='block w-full py-2'>
+              {t('login.profile_txt')}
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={signOut}

@@ -253,12 +253,12 @@ const VideoWindow = ({
       <Error statusCode={404} />
     ) : (
       <>
-        <div className="fixed z-40 top-0 left-0 right-0 px-4 lg:pl-[104px] lg:pr-6 lg:px-8 flex flex-row items-center justify-center w-full py-4 text-sm text-black dark:text-white/70 border-b bg-light-secondary dark:bg-dark-secondary border-light-100 dark:border-dark-200">
-          <p className="max-w-full lg:max-w-3xl line-clamp-1">{videoInfo?.title}</p>
+        <div className="h-20 fixed z-40 top-0 left-0 px-4 lg:pl-[120px] lg:pr-6 lg:px-8 flex flex-row items-center text-base text-black dark:text-white/70">
+          <p className="max-w-[200px] lg:max-w-lg line-clamp-1">{videoInfo?.title}</p>
         </div>
-        <div className="w-full flex py-20 space-x-5">
+        <div className="w-full flex py-28 space-x-5">
           <div className="w-[270px]">
-            <div className="sticky top-[53px]">
+            <div className="sticky top-20">
               <div className="flex w-[270px] h-[480px] justify-center items-center bg-black">
                 <video 
                   controls

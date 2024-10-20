@@ -17,7 +17,8 @@ export const en = {
     btn_login: 'Log In / Register',
     upgrade: 'Upgrade',
     credits_label: 'Account: ',
-    credits_unit: 'credits'
+    credits_unit: 'credits',
+    join_group: 'Join chat group'
   },
   hot_page: {
     no_data: 'No data~',
@@ -72,7 +73,8 @@ export const en = {
   },
   login: {
     signup_success_tip: 'registered successfully',
-    signout_txt: 'Sign Out'
+    signout_txt: 'Sign Out',
+    profile_txt: 'Dashboard'
   },
   error_info: {
     catch_error: 'An error occurred, please try again'

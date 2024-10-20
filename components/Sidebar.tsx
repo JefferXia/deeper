@@ -1,13 +1,19 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Crown, BotMessageSquare, FileVideo, Sparkles, CircleUserRound, Flame, Shovel, BookOpenText, Home, Search, SquarePen, Settings, Clapperboard } from 'lucide-react';
+import { MessageCircleQuestion, BotMessageSquare, FileVideo, Sparkles, Clapperboard } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
 import Layout from './Layout';
 import SettingsDialog from './SettingsDialog';
 import { useTranslations } from 'use-intl'
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
 
 const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -71,19 +77,33 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                       : 'text-black/70 dark:text-white/70',
                   )}
                 >
-                  <link.icon />
+                  {link.active ? <link.icon fill="#24A0ED" /> : <link.icon />} 
                   <div className='text-base ml-3 font-medium invisible group-hover:visible'>{link.label}</div>
-                  {/* {link.active && (
-                    <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-black dark:bg-white" />
-                  )} */}
                 </Link>
               ))}
             </VerticalIconContainer>
           </div>
-          <div className='w-full transition-all duration-500 px-7'>
-            
-            <CircleUserRound className='cursor-pointer visible group-hover:invisible' />
-          </div>
+          <HoverCard>
+            <HoverCardTrigger asChild>              
+              <div className='flex transition-all duration-500 px-7 cursor-pointer'>                
+                <MessageCircleQuestion />
+                <div className='text-base ml-3 font-medium invisible group-hover:visible'>{t('side_bar.join_group')}</div>
+              </div>
+            </HoverCardTrigger>
+            <HoverCardContent side="right" className="w-[208px]">
+              <div className="bg-white rounded-lg flex items-center justify-center flex-col relative overflow-hidden">
+                <Image
+                  src={
+                    '/images/wechat-group.jpg'
+                  }
+                  alt={'join wechat group'}
+                  width={208}
+                  height={208}
+                />
+              </div>
+            </HoverCardContent>
+          </HoverCard> 
+
           {/* <Settings
             onClick={() => setIsSettingsOpen(!isSettingsOpen)}
             className="cursor-pointer"

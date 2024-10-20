@@ -80,37 +80,15 @@ const Header = () => {
                 {t('side_bar.credits_unit')}
               </p> */}
             <AvatarDropdown />
-            <Button 
-              className="w-full py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
+            {/* <Button 
+              className="py-2.5 rounded-xl text-[#FFFFFF] animate-[fadeIn_500ms_ease-in-out] bg-[#24A0ED] hover:bg-[#24A0ED]/90 flex items-center justify-center"
             >
               <Crown className="text-[#F8da51] mr-2 h-4 w-4" />
               {t('side_bar.upgrade')}
-            </Button>
+            </Button> */}
           </>
         )}
       </div>
-      
-                {/* <div className="w-screen h-screen bg-slogan-text fixed left-0 top-0 flex items-center justify-center">
-                  <div className="bg-white rounded-lg p-4 flex items-center justify-center flex-col relative">
-                    <Image
-                      src={
-                        'https://img.alicdn.com/imgextra/i3/O1CN01JfeuCh1P9X6EMJjiw_!!6000000001798-0-tps-1125-1125.jpg'
-                      }
-                      alt={'mobile-wechat'}
-                      width={208}
-                      height={208}
-                    />
-                    <div className="mt-4 text-base text-default-search-content-color">
-                      {t('xanswer.weChat_group')}
-                    </div>
-                    <CircleX
-                      size={28}
-                      color={'#fff'}
-                      className="absolute left-[106px] bottom-[-44px]"
-                      onClick={() => setOpenMobileWeChat(false)}
-                    />
-                  </div>
-                </div> */}
     </header>
   )
 }

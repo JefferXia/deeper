@@ -58,8 +58,8 @@ const Page = () => {
     </div>
   ) : (
     <div>
-      <div className="fixed z-40 top-0 left-0 right-0 lg:pl-[104px] lg:pr-6 lg:px-8 px-4 py-4 lg:py-6 border-b border-light-200 dark:border-dark-200">
-        <div className="flex flex-row items-center space-x-2 max-w-screen-lg lg:mx-auto">
+      <div className="fixed z-40 top-0 left-0 lg:pl-[120px] lg:pr-6 lg:px-8 px-4">
+        <div className="flex h-20 flex-row items-center space-x-2">
           <BookOpenText />
           <h2 className="text-black dark:text-white lg:text-3xl lg:font-medium">
             Library

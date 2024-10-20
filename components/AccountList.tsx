@@ -10,6 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Crown } from 'lucide-react';
+import { useGlobalContext } from '@/app/globalcontext'
+import { useTranslations } from 'use-intl'
 
 interface Item {
   type: string;
@@ -22,6 +25,8 @@ type ListProps = {
 
 export function AccountList({ list }: ListProps) {
   // const [list, setList] = useState([])
+  const { userInfo } = useGlobalContext()
+  const t = useTranslations()
 
   useEffect(() => {}, []);
 
@@ -40,7 +45,7 @@ export function AccountList({ list }: ListProps) {
             <TableRow key={index}>
               <TableCell className="font-medium">{item.type}</TableCell>
               <TableCell>{item.amount}</TableCell>
-              <TableCell className="text-right">{item.createdAt}</TableCell>
+              <TableCell>{item.createdAt}</TableCell>
             </TableRow>
           ))}
         </TableBody>

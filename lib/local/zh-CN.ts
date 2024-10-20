@@ -17,7 +17,8 @@ export const zh = {
     btn_login: '登录 / 注册',
     upgrade: '升级VIP',
     credits_label: '账户余额：',
-    credits_unit: '代币'
+    credits_unit: '代币',
+    join_group: '加入群聊'
   },
   hot_page: {
     no_data: '没有热门视频',
@@ -72,7 +73,8 @@ export const zh = {
   },
   login: {
     signup_success_tip: '注册成功！',
-    signout_txt: '退出登录'
+    signout_txt: '退出登录',
+    profile_txt: '个人主页'
   },
   error_info: {
     catch_error: '发生错误，请重试~'
