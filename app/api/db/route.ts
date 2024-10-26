@@ -16,7 +16,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     // const query = req.nextUrl.searchParams.get('q')
-    // await fetch('https://x-answer.app.n8n.cloud/webhook/bd02e3cd-e005-4e59-86d5-338600ef09c5')
     const query = await req.text()
     if (!query) {
       return NextResponse.json({ error: 'Query string is missing' }, { status: 400 });

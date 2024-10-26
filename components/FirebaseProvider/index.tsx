@@ -179,16 +179,16 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
       const result = await signInWithPopup(auth, provider);
       const credential =
         signInProviders[platform].prototype.credentialFromResult(result);
-      console.log(`[${projectName} Firebase] Firebase credential:`, credential);
+      // console.log(`[${projectName} Firebase] Firebase credential:`, credential);
       // 保存凭证
 
       if (tokenVerification) {
         const idToken = await getIdToken(result.user);
         const tokenVerificationResult = await tokenVerification(idToken);
-        console.log(
-          `[${projectName} Firebase] Token verification result:`,
-          tokenVerificationResult,
-        );
+        // console.log(
+        //   `[${projectName} Firebase] Token verification result:`,
+        //   tokenVerificationResult,
+        // );
         // 登录成功后重定向到主页或其他页面 交给组件自己完成
         return tokenVerificationResult;
       }
@@ -227,10 +227,10 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
       if (pendingCred) {
         // 链接 Google 凭证到现有账户
         let user = await linkWithCredential(result.user, pendingCred);
-        console.log(
-          `[${projectName} Firebase] Log in with selected method, user: `,
-          user,
-        );
+        // console.log(
+        //   `[${projectName} Firebase] Log in with selected method, user: `,
+        //   user,
+        // );
         // ...处理账户链接成功后的逻辑...
         // 清除待处理凭证
         localStorage.removeItem('pendingCred');
@@ -289,7 +289,7 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
       );
       // 注册成功
       const user = userCredential.user;
-      console.log(`[${projectName} Firebase] User created:`, user);
+      // console.log(`[${projectName} Firebase] User created:`, user);
       // 这里可以添加后续的用户注册成功的处理逻辑
       // 例如更新数据库, 发送欢迎邮件, 或者跳转到其他页面等
       // 发送邮箱验证邮件
@@ -323,7 +323,7 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
       );
       // 登录成功
       const user = userCredential.user;
-      console.log(`[${projectName} Firebase] User signed in:`, user);
+      // console.log(`[${projectName} Firebase] User signed in:`, user);
 
       if (!user.emailVerified) {
         // 邮箱未验证
@@ -335,10 +335,10 @@ export const FirebaseProvider: FC<FirebaseProviderProps> = ({
         if (tokenVerification) {
           const idToken = await getIdToken(user);
           const tokenVerificationResult = await tokenVerification(idToken);
-          console.log(
-            `[${projectName} Firebase] Token verification result:`,
-            tokenVerificationResult,
-          );
+          // console.log(
+          //   `[${projectName} Firebase] Token verification result:`,
+          //   tokenVerificationResult,
+          // );
           return tokenVerificationResult;
         }
       }

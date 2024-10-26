@@ -62,6 +62,21 @@ export const downloadUrl = async (url: string, userId: string) => {
     }),
   });
 
-  const data = await res.json();
-  return data;
+  if (res.status === 200) {
+    const result = await fetch('/api/transaction', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        type: 'video_analysis'
+      }),
+    });
+    const data = await res.json();
+    const resultJson = await result.json();
+    return {
+      ...data,
+      userData: resultJson
+    }
+  }
 };

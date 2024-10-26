@@ -36,7 +36,7 @@ export default async function RootLayout({
       <body className={cn('h-full', montserrat.className)}>
         <GoogleAnalytics gaId="G-DDJKD745FB" />
         <ThemeProvider>
-          <GlobalContextProvider userInfo={userInfo}>
+          <GlobalContextProvider userData={userInfo}>
             <Header />
             <Sidebar>{children}</Sidebar>
             <Toaster

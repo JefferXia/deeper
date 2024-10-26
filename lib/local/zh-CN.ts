@@ -79,6 +79,7 @@ export const zh = {
     profile_txt: '个人主页'
   },
   error_info: {
-    catch_error: '发生错误，请重试~'
+    catch_error: '发生错误，请重试~',
+    no_money: '余额不足，请充值'
   }
 }

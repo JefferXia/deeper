@@ -20,12 +20,13 @@ export const useGlobalContext = () => useContext<any>(GlobalContext)
 
 export const GlobalContextProvider = function ({
   children,
-  userInfo
+  userData
 }: {
   children: ReactNode
-  userInfo?: UserInfo
+  userData?: UserInfo
 }) {
   const path = usePathname()
+  const [userInfo, setUserInfo] = useState(userData)
   const [language, setLanguage] = useLanguage('zh')
   const [loginModalOpen, setLoginModalOpen] = useState(false)
 
@@ -37,6 +38,7 @@ export const GlobalContextProvider = function ({
     <GlobalContext.Provider
       value={{
         userInfo,
+        setUserInfo,
         language,
         setLanguage,
         loginModalOpen,

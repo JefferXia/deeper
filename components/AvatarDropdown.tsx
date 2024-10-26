@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { getFirstLetterAndUpperCase } from '@/lib/utils'
-import Image from 'next/image'
+import { HandCoins, UserRound, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import {
   DropdownMenu,
@@ -37,6 +37,10 @@ export function AvatarDropdown(props: AvatarDropdownProps) {
     })
   }, [])
 
+  const linkToProfile = () => {
+    router.push(`/profile`);
+  }
+
   return (
     <>
       <DropdownMenu>
@@ -64,16 +68,23 @@ export function AvatarDropdown(props: AvatarDropdownProps) {
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem
-            className="py-0 pl-5 border-t border-avatar-dropdown dark:border-avatar-dropdown-dark-bg max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
+            className="py-2 pl-5 border-t border-avatar-dropdown dark:border-avatar-dropdown-dark-bg max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
           >
-            <Link href="/profile" className='block w-full py-2'>
-              {t('login.profile_txt')}
-            </Link>
+            <HandCoins size={16} className='mr-3' />
+            {t('profile.credits_unit')}: {userInfo?.totalBalance}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={linkToProfile}
+            className="py-2 pl-5 max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
+          >
+            <UserRound size={16} className='mr-3' />
+            {t('login.profile_txt')}
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={signOut}
             className="py-2 pl-5 cursor-pointer border-t border-avatar-dropdown dark:border-avatar-dropdown-dark-bg max-md:bg-white max-md:border-0 max-md:dark:bg-mobile-dark-header-dropdown"
           >
+            <LogOut size={16} className='mr-3' />
             {t('login.signout_txt')}
           </DropdownMenuItem>
         </DropdownMenuContent>

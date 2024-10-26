@@ -18,10 +18,12 @@ const DigInput = () => {
   const t = useTranslations();
   const {
     userInfo,
+    setUserInfo,
     setLoginModalOpen
   } = useGlobalContext()
 
   useEffect(() => {
+    console.log(userInfo)
     inputRef.current?.focus();
   }, []);
 
@@ -30,10 +32,17 @@ const DigInput = () => {
       setLoginModalOpen(true)
       return
     }
+    if(userInfo.totalBalance < 10) {
+      toast.error(
+        t('error_info.no_money'),
+      );
+      return
+    }
     setLoading(true)
     try {
       const response = await downloadUrl(theUrl, userInfo?.uid)
-      if(response?.id) {
+      if(response) {
+        setUserInfo(response.userData);
         router.push(`/video-analysis/${response.id}?first=yes`);
       } else {
         toast.error(

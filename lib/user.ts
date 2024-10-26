@@ -39,13 +39,21 @@ export async function getUser(token?: string) {
     }
 
     // 通过firebase admin校验cookie
-    const verifyUserInfo = await getUserByToken(userToken)
-    // const verifyUserInfo = {uid: 'utest1'};
+    // const verifyUserInfo = await getUserByToken(userToken)
+    const verifyUserInfo = {uid: 'utest1'};
 
     if(verifyUserInfo) {
       const userData = await findUser(verifyUserInfo?.uid)
       cache.set(`user:token:${userToken}`, JSON.stringify(userData))
       return userData
     }
+  }
+}
+
+export async function updateUser(info: UserInfo) {
+  const cookieStore = cookies()
+  const userToken = cookieStore.get('firebaseToken')?.value
+  if (userToken) {
+    cache.set(`user:token:${userToken}`, JSON.stringify(info))
   }
 }

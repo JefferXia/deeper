@@ -2,11 +2,15 @@
 
 import prisma from '@/lib/prisma'
 import { UserInfo } from '@/lib/user'
+
 interface Record {
   type: string
   amount: string | number
   createdAt: Date
 }
+type ValueType = {
+  [key: string]: number; // 定义对象的键为字符串，值为数字
+};
 
 export async function createUser(user: UserInfo) {
   if (!user.uid) {
@@ -99,15 +103,14 @@ export async function findUser(userId: string) {
   }
 }
 
-export async function main() {
-  
-  // 添加充值记录
+// 添加充值记录
+export async function createRecharge(accountId: number, amount: number) {
   const rechargeTransaction = await prisma.$transaction([
     // 1. 创建充值记录
     prisma.rechargeRecord.create({
       data: {
-        accountId: 1,
-        amount: 100,
+        accountId,
+        amount,
         orderNumber: 'ORD123456', // 生成或传入唯一订单号
         source: 'WeChat',         // 充值来源，如：支付宝、微信等
         status: 'COMPLETED',      // 充值状态：成功
@@ -115,43 +118,49 @@ export async function main() {
     }),
     // 2. 更新账户余额和充值代币
     prisma.account.update({
-      where: { id: 1 },
+      where: { id: accountId },
       data: {
         totalBalance: {
-          increment: 100, // 增加总余额
+          increment: amount, // 增加总余额
         },
         rechargeTokens: {
-          increment: 100, // 增加充值代币余额
+          increment: amount, // 增加充值代币余额
         },
       },
     }),
   ]);
 
   console.log('Recharge record created:', rechargeTransaction);
-  
-  // 添加消费记录示例
+}
+
+// 添加交易记录
+export async function createTransaction(accountId: number, type: string) {
+  const getValueByType: ValueType = {
+    'video_analysis': 10
+  }
   const transaction = await prisma.$transaction([
     prisma.transactionRecord.create({
       data: {
-        accountId: 1,
-        amount: -10,
-        type: 'video_analysis',
+        accountId,
+        amount: -1 * getValueByType[type],
+        type,
       },
     }),
     prisma.account.update({
-      where: { id: 1 },
+      where: { id: accountId },
       data: {
         totalBalance: {
-          decrement: 30,
+          decrement: getValueByType[type],
         },
         giftTokens: {
-          decrement: 30,
+          decrement: getValueByType[type],
         },
       },
     }),
   ]);
 
-  console.log('Transaction record created:', transaction);
+  return transaction
+  // console.log('Transaction record created:', transaction);
 }
 
 export async function accountDetails(userId: string) {

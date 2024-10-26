@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <header
-      className="fixed top-0 w-full h-20 px-7 flex justify-between items-center z-10 backdrop-blur md:backdrop-blur-none bg-white dark:bg-[rgba(0,0,0,0.1)] max-md:h-12 max-md:py-2 max-md:pl-[10px] max-md:pr-[10px] max-md:border-header-bottom-border max-md:dark:border-1 max-md:bg-white max-md:dark:bg-chat-box"
+      className="fixed top-0 w-full h-20 px-7 flex justify-between items-center z-10 backdrop-blur-md max-md:h-12 max-md:py-2 max-md:pl-[10px] max-md:pr-[10px]"
     >
       <div className=''></div>
       <div className="h-full flex gap-8 items-center max-md:ml-4">

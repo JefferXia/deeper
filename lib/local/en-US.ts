@@ -79,6 +79,7 @@ export const en = {
     profile_txt: 'Dashboard'
   },
   error_info: {
-    catch_error: 'An error occurred, please try again'
+    catch_error: 'An error occurred, please try again',
+    no_money: 'Insufficient balance, please recharge'
   }
 }
