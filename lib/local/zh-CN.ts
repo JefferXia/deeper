@@ -1,7 +1,7 @@
 export const zh = {
   home_page: {
-    title: '达人说',
-    subtitle: '爆款视频AI解析神器',
+    title: 'TopMind',
+    subtitle: 'AI拆解爆款视频',
     placeholder: '在这里粘贴你要解析的视频链接',
     upload_text: '上传文件',
     toast_invalid_url: '没有检测到有效的视频链接',
@@ -9,6 +9,8 @@ export const zh = {
     toast_invalid_file: '请上传一个有效的视频文件'
   },
   side_bar: {
+    dashboard_btn: '我的项目',
+    profile_btn: '我的账户',
     home_btn: '拆解视频',
     hot_btn: '创作灵感',
     ask_btn: '问AI',

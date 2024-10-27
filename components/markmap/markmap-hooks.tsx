@@ -31,7 +31,7 @@ export default function MarkmapHooks({
     if (refMm.current) return
     try {
       const mm = Markmap.create(refSvg.current, { duration: 100, pan: false })
-      console.log('create', refSvg.current)
+      // console.log('create', refSvg.current)
       refMm.current = mm
       // renderToolbar(refMm.current, refToolbar.current);
     } catch (e) { }

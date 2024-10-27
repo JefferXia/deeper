@@ -23,7 +23,7 @@ const DigInput = () => {
   } = useGlobalContext()
 
   useEffect(() => {
-    console.log(userInfo)
+    // console.log(userInfo)
     inputRef.current?.focus();
   }, []);
 

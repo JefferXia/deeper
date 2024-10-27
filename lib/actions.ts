@@ -63,6 +63,10 @@ export const downloadUrl = async (url: string, userId: string) => {
   });
 
   if (res.status === 200) {
+    const data = await res.json();
+    if(data.exist) {
+      return data
+    }
     const result = await fetch('/api/transaction', {
       method: 'POST',
       headers: {
@@ -72,7 +76,6 @@ export const downloadUrl = async (url: string, userId: string) => {
         type: 'video_analysis'
       }),
     });
-    const data = await res.json();
     const resultJson = await result.json();
     return {
       ...data,

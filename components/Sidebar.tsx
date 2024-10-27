@@ -1,14 +1,14 @@
 'use client';
-
 import { cn } from '@/lib/utils';
-import { MessageCircleQuestion, BotMessageSquare, FileVideo, Sparkles, Clapperboard } from 'lucide-react';
+import { MessageCircleQuestion, BotMessageSquare, FileVideo, Sparkles, Clapperboard, LayoutDashboard, UserRound } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
 import Layout from './Layout';
-import SettingsDialog from './SettingsDialog';
+// import SettingsDialog from './SettingsDialog';
 import { useTranslations } from 'use-intl'
+import { useGlobalContext } from '@/app/globalcontext'
 import {
   HoverCard,
   HoverCardContent,
@@ -23,10 +23,26 @@ const VerticalIconContainer = ({ children }: { children: ReactNode }) => {
 
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const segments = useSelectedLayoutSegments();
-
+  const {
+    userInfo
+  } = useGlobalContext()
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const t = useTranslations();
 
+  const myNavLinks = [
+    {
+      icon: LayoutDashboard,
+      href: '/dashboard',
+      active: segments.includes('dashboard'),
+      label: t('side_bar.dashboard_btn')
+    },
+    {
+      icon: UserRound,
+      href: '/profile',
+      active: segments.includes('profile'),
+      label: t('side_bar.profile_btn')
+    }
+  ];
   const navLinks = [
     {
       icon: FileVideo,
@@ -66,6 +82,21 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               <div className='text-xl font-medium invisible group-hover:visible'>TopMind</div>
             </a>
             <VerticalIconContainer>
+              {userInfo?.uid && myNavLinks.map((link, i) => (
+                <Link
+                  key={`my-${i}`}
+                  href={link.href}
+                  className={cn(
+                    'relative flex items-center justify-start cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 duration-500 transition-all w-full px-2 group-hover:px-3 py-2 rounded-lg',
+                    link.active
+                      ? 'text-black dark:text-white'
+                      : 'text-black/70 dark:text-white/70',
+                  )}
+                >
+                  {link.active ? <link.icon color="#24A0ED" /> : <link.icon />} 
+                  <div className='text-base ml-3 font-medium invisible group-hover:visible'>{link.label}</div>
+                </Link>
+              ))}
               {navLinks.map((link, i) => (
                 <Link
                   key={i}

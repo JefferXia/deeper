@@ -58,10 +58,12 @@ const VideoSceneBox: React.FC<VideoSceneBoxProps> = ({ sceneData, handleSeek }) 
                             src={
                               `//${s.url}`
                             }
+                            className='cursor-pointer'
                             alt={`Scene ${sceneIndex}`}
                             width={180}
                             height={320}
                             priority={false} // 表示启用懒加载
+                            onClick={() => handleSeek(s.startTime)}
                           />
                         </td>
                         </>
@@ -92,10 +94,12 @@ const VideoSceneBox: React.FC<VideoSceneBoxProps> = ({ sceneData, handleSeek }) 
                         src={
                           `//${s.url}`
                         }
+                        className='cursor-pointer'
                         alt={`Scene ${sceneIndex}`}
                         width={180}
                         height={320}
                         priority={false} // 表示启用懒加载
+                        onClick={() => handleSeek(s.startTime)}
                       />
                     </td>
                     <td className='px-6 py-3 border-b border-tbborder'></td>
@@ -111,7 +115,9 @@ const VideoSceneBox: React.FC<VideoSceneBoxProps> = ({ sceneData, handleSeek }) 
           <div className='grid grid-cols-3 gap-4'>
           {sceneData && sceneData.map((s:Scene, sceneIndex:number) => (
             <div key={`scene-${sceneIndex}`} className='p-3 bg-light-secondary dark:bg-dark-secondary rounded-md'>
-              <div className='relative w-full pt-[100%]'>
+              <div 
+                onClick={() => handleSeek(s.startTime)}
+                className='relative w-full pt-[100%] cursor-pointer'>
                 <Image
                   src={
                     `//${s.url}`
