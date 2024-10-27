@@ -22,7 +22,7 @@ const LangSwitcher = () => {
           className="cursor-pointer"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-36">
+      <DropdownMenuContent className="w-36">
         <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
           <DropdownMenuRadioItem value="cn">简体中文</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>

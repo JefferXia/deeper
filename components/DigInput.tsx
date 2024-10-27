@@ -158,8 +158,8 @@ const DigInput = () => {
       {loading && (
         <div className="w-full flex items-center justify-center text-black/70 dark:text-white/70">
           {/* <LoaderCircle className="animate-spin" /> */}
-          <div className='relative w-full h-[6px] bg-[#cccccc] rounded-[6px]'>
-            <div className='absolute top-0 h-full animate-linespin bg-[#24A0ED] rounded-[6px]'></div>
+          <div className='relative w-full h-[16px] bg-[#cccccc] rounded-[16px]'>
+            <div className='absolute top-[2px] h-[12px] animate-linespin bg-main-color rounded-[12px]'></div>
           </div>
         </div>
       )}
