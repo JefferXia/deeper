@@ -77,7 +77,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                       : 'text-black/70 dark:text-white/70',
                   )}
                 >
-                  {link.active ? <link.icon fill="#24A0ED" /> : <link.icon />} 
+                  {link.active ? <link.icon color="#24A0ED" /> : <link.icon />} 
                   <div className='text-base ml-3 font-medium invisible group-hover:visible'>{link.label}</div>
                 </Link>
               ))}

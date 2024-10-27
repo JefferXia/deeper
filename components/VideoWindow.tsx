@@ -248,6 +248,13 @@ const VideoWindow = ({
     document.body.removeChild(a);
   }
 
+  const seekTo = (time: number) => {
+    if(videoRef.current) {
+      videoRef.current.currentTime = Math.floor(time / 1000);
+      videoRef.current.play()
+    }
+  }
+
   return isReady ? (
     notFound ? (
       <Error statusCode={404} />
@@ -317,7 +324,7 @@ const VideoWindow = ({
 
             <VideoMarkmapBox markmapData={markmapData} />
 
-            <VideoSceneBox sceneData={newScene} />
+            <VideoSceneBox sceneData={newScene} handleSeek={seekTo} />
           </div>
         </div>
       </>

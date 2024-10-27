@@ -4,8 +4,13 @@ import { Scene, Subtitle } from '@/components/VideoWindow'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import SrtBoxLoading from '@/components/SrtBoxLoading'
 import { useTranslations } from 'use-intl'
+import Image from 'next/image';
+interface VideoSceneBoxProps {
+  sceneData?: Scene[]
+  handleSeek: (time: number) => void
+}
 
-const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
+const VideoSceneBox: React.FC<VideoSceneBoxProps> = ({ sceneData, handleSeek }) => {
   const t = useTranslations();
   
   useEffect(() => {    
@@ -28,7 +33,8 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
             <table className="w-full border-collapse">
               <thead>
                 <tr className='text-[#A0AEC0] text-left'>
-                  <th className='w-[180px] px-6 py-3 border-b border-tbborder'>{t('video_page.scene')}</th>
+                  <th className='w-8 px-0 py-3 border-b border-tbborder'></th>
+                  <th className='w-[230px] px-6 py-3 border-b border-tbborder'>{t('video_page.scene')}</th>
                   <th className='w-[100px] px-0 py-3 border-b border-tbborder'></th>
                   <th className='px-6 py-3 border-b border-tbborder'>{t('video_page.copywriting')}</th>
                 </tr>
@@ -39,11 +45,26 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
                   s.relatedSubtitles.map((subtitle:Subtitle, subtitleIndex:number) => (
                     <tr key={`${sceneIndex}-${subtitleIndex}`}>
                       {subtitleIndex === 0 && (
-                        <td className='px-6 py-3 border-b border-tbborder' rowSpan={s.relatedSubtitles?.length}>
-                          <img 
-                            // onClick={() => videoRef.current && videoRef.current.seekTo(s.startTime)}
-                            src={`//${s.url}`} className='rounded-md' width={180} alt={`Scene ${sceneIndex}`} />
+                        <>
+                        <td className='py-3 border-b border-tbborder' rowSpan={s.relatedSubtitles?.length}>
+                          <span 
+                            onClick={() => handleSeek(s.startTime)}
+                            className='flex justify-center items-center w-8 h-8 text-white bg-main-color rounded-full cursor-pointer'>
+                            {sceneIndex+1}
+                          </span>
                         </td>
+                        <td className='px-6 py-3 border-b border-tbborder' rowSpan={s.relatedSubtitles?.length}>
+                          <Image
+                            src={
+                              `//${s.url}`
+                            }
+                            alt={`Scene ${sceneIndex}`}
+                            width={180}
+                            height={320}
+                            priority={false} // 表示启用懒加载
+                          />
+                        </td>
+                        </>
                       )}
                       <td className='px-0 py-3 text-sm border-b border-tbborder'>
                         <p className="">
@@ -59,8 +80,23 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
                   ))
                 ) : (
                   <tr key={`${sceneIndex}`}>
+                    <td className='py-3 border-b border-tbborder'>
+                      <span 
+                        onClick={() => handleSeek(s.startTime)}
+                        className='flex justify-center items-center w-8 h-8 text-white bg-main-color rounded-full cursor-pointer'>
+                        {sceneIndex+1}
+                      </span>
+                    </td>
                     <td className='px-6 py-3 border-b border-tbborder'>
-                      <img src={`//${s.url}`} width={180} className='rounded-md' alt={`Scene ${sceneIndex}`} />
+                      <Image
+                        src={
+                          `//${s.url}`
+                        }
+                        alt={`Scene ${sceneIndex}`}
+                        width={180}
+                        height={320}
+                        priority={false} // 表示启用懒加载
+                      />
                     </td>
                     <td className='px-6 py-3 border-b border-tbborder'></td>
                     <td className='px-6 py-3 border-b border-tbborder'>{t('video_page.no_subtitles')}</td>
@@ -75,8 +111,17 @@ const VideoSceneBox = ({ sceneData }: { sceneData?: Scene[] }) => {
           <div className='grid grid-cols-3 gap-4'>
           {sceneData && sceneData.map((s:Scene, sceneIndex:number) => (
             <div key={`scene-${sceneIndex}`} className='p-3 bg-light-secondary dark:bg-dark-secondary rounded-md'>
-              <div className=''>
-                <img src={`//${s.url}`} className='w-full rounded-md' alt={`Scene ${sceneIndex}`} />
+              <div className='relative w-full pt-[100%]'>
+                <Image
+                  src={
+                    `//${s.url}`
+                  }
+                  className='rounded-md'
+                  alt={`Scene ${sceneIndex}`}
+                  layout="fill"
+                  objectFit="cover"
+                  priority={false} // 表示启用懒加载
+                />
               </div>
 
               <div className='px-3 py-2 text-sm'>

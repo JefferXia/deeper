@@ -90,6 +90,7 @@ const config: Config = {
           'avatar-dropdown-bg': '#FFE1E5',
           'avatar-dropdown-dark-bg': '#2b2b2b',
           'mobile-dark-header-dropdown': '#202020',
+          'main-color': '#24A0ED',
         };
       },
       spacing: {
