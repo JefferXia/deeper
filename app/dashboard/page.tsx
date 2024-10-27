@@ -85,7 +85,7 @@ const Page = () => {
       <div className="fixed z-40 top-0 left-0 lg:pl-[120px] lg:pr-6 lg:px-8 px-4">
         <div className="flex h-20 flex-row items-center space-x-2">
           <h2 className="text-black dark:text-white lg:text-2xl lg:font-medium">
-            我的项目
+          {t('side_bar.dashboard_btn')}
           </h2>
         </div>
       </div>
@@ -109,7 +109,7 @@ const Page = () => {
                 }}
                 className='flex flex-1 justify-center items-center bg-black relative transition duration-200 active:scale-95 hover:scale-[1.02] cursor-pointer'>
                 <video
-                  className='w-full'
+                  className='w-full aspect-square'
                   ref={(el:any) => (videoRefs.current[i] = el)}
                   src={`//${video.url}`}
                   onMouseLeave={() => {
