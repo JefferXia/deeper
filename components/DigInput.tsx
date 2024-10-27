@@ -42,7 +42,7 @@ const DigInput = () => {
     try {
       const response = await downloadUrl(theUrl, userInfo?.uid)
       if(response) {
-        setUserInfo(response.userData);
+        response.userData && setUserInfo(response.userData);
         router.push(`/video-analysis/${response.id}?first=yes`);
       } else {
         toast.error(

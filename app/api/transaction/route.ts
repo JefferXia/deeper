@@ -12,6 +12,9 @@ export async function POST(req: NextRequest) {
   try {
     const result = await createTransaction(userInfo.accountId, type)
     
+    if(!result) {
+      return NextResponse.json({ error: 'account error' }, { status: 404 });
+    }
     const updatedUserInfo = {
       ...userInfo,
       totalBalance: result[1]?.totalBalance,

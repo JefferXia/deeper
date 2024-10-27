@@ -76,10 +76,13 @@ export const downloadUrl = async (url: string, userId: string) => {
         type: 'video_analysis'
       }),
     });
-    const resultJson = await result.json();
-    return {
-      ...data,
-      userData: resultJson
+    if (result.status === 200) {
+      const resultJson = await result.json();
+      return {
+        ...data,
+        userData: resultJson
+      }
     }
+    return data
   }
 };
