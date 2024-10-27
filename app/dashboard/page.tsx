@@ -4,8 +4,8 @@ import { Flame, PlayCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { Button } from "@/components/ui/button"
-import { Download, Star } from 'lucide-react'
 import { useTranslations } from 'use-intl'
+import { useGlobalContext } from '@/app/globalcontext'
 
 export interface VideoItem {
   id: string;
@@ -22,6 +22,9 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
   const t = useTranslations();
+  const {
+    userInfo
+  } = useGlobalContext()
 
   const formatNumber = (num:number) => {
     if (num >= 10000) {
@@ -37,7 +40,7 @@ const Page = () => {
     const fetchVideos = async () => {
       setLoading(true);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/myvideos/${userInfo.uid}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -57,14 +60,6 @@ const Page = () => {
 
     fetchVideos();
   }, []);
-
-  const downloadVideo = (url:string) => {
-    const a = document.createElement('a');
-    a.href = '//'+url;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
 
   return loading ? (
     <div className="flex flex-row items-center justify-center min-h-screen">
@@ -89,9 +84,8 @@ const Page = () => {
     <div>
       <div className="fixed z-40 top-0 left-0 lg:pl-[120px] lg:pr-6 lg:px-8 px-4">
         <div className="flex h-20 flex-row items-center space-x-2">
-          <Flame />
           <h2 className="text-black dark:text-white lg:text-2xl lg:font-medium">
-            爆款广场
+            我的项目
           </h2>
         </div>
       </div>
@@ -150,10 +144,6 @@ const Page = () => {
                       {t('hot_page.main_btn')}
                     </Button>
                   </Link>
-                  <div className='flex space-x-2'>
-                    <Download className='cursor-pointer' size={20} onClick={() => downloadVideo(video.url)} />
-                    <Star className='cursor-pointer' size={20} />
-                  </div>
                 </div>
               </div>
             </div>
