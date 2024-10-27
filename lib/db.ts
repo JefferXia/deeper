@@ -138,28 +138,65 @@ export async function createTransaction(accountId: number, type: string) {
   const getValueByType: ValueType = {
     'video_analysis': 10
   }
-  const transaction = await prisma.$transaction([
-    prisma.transactionRecord.create({
-      data: {
-        accountId,
-        amount: -1 * getValueByType[type],
-        type,
-      },
-    }),
-    prisma.account.update({
-      where: { id: accountId },
-      data: {
-        totalBalance: {
-          decrement: getValueByType[type],
+  const accountData = await prisma.account.findUnique({
+    where: { id: accountId },
+    select: {
+      totalBalance: true,
+      giftTokens: true,
+      rechargeTokens: true,
+    }
+  });
+  if(!accountData || accountData.totalBalance.toNumber() < getValueByType[type]) {
+    return false
+  }
+  // 优先扣除 giftTokens
+  if (accountData.giftTokens.toNumber() >= getValueByType[type]) {
+    const transaction = await prisma.$transaction([
+      prisma.transactionRecord.create({
+        data: {
+          accountId,
+          amount: -1 * getValueByType[type],
+          type,
         },
-        giftTokens: {
-          decrement: getValueByType[type],
+      }),
+      prisma.account.update({
+        where: { id: accountId },
+        data: {
+          totalBalance: {
+            decrement: getValueByType[type],
+          },
+          giftTokens: {
+            decrement: getValueByType[type],
+          },
         },
-      },
-    }),
-  ]);
+      }),
+    ]);
 
-  return transaction
+    return transaction
+  } else {
+    const transaction = await prisma.$transaction([
+      prisma.transactionRecord.create({
+        data: {
+          accountId,
+          amount: -1 * getValueByType[type],
+          type,
+        },
+      }),
+      prisma.account.update({
+        where: { id: accountId },
+        data: {
+          totalBalance: {
+            decrement: getValueByType[type],
+          },
+          rechargeTokens: {
+            decrement: getValueByType[type],
+          },
+        },
+      }),
+    ]);
+
+    return transaction
+  }
   // console.log('Transaction record created:', transaction);
 }
 
@@ -184,19 +221,19 @@ export async function accountDetails(userId: string) {
   // 合并 GiftRecord、TransactionRecord 和 RechargeRecord
   const combinedRecords = [
     ...accountWithDetails.gifts.map(record => ({
-      type: '赠送积分',                 // 赠送记录的类型
+      type: `type_${record.type}`,                 // 赠送记录的类型
       amount: `+${record.amount}`,        // 积分变动（正数）
       createdAt: record.createdAt,        // 记录的时间
     })),
     ...accountWithDetails.transactions.map(record => ({
-      type: `消耗积分-${record.type}`,    // 消费记录的类型
+      type: `type_${record.type}`,    // 消费记录的类型
       amount: `${record.amount}`,              // 积分变动（负数）
       createdAt: record.createdAt,        // 记录的时间
     })),
     ...accountWithDetails.recharges
       .filter(record => record.status === 'COMPLETED') // 只包含已完成的充值
       .map(record => ({
-        type: `充值积分-${record.source}`, // 充值记录的类型
+        type: `source_${record.source}`, // 充值记录的类型
         amount: `+${record.amount}`,       // 积分变动（正数）
         createdAt: record.createdAt,       // 记录的时间
       })),

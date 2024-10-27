@@ -27,7 +27,7 @@ export function AccountInfo() {
           <div className="space-y-1">
             <h4 className="text-sm font-semibold">{userInfo?.email}</h4>
             <p className="text-sm text-muted-foreground">
-              未开通会员
+              {t('profile.no_vip')}
             </p>
             <div className="flex items-center pt-1">
               <CalendarDays className="mr-2 h-4 w-4 opacity-70" />{" "}
@@ -54,9 +54,9 @@ export function AccountInfo() {
           </HoverCardTrigger>
           <HoverCardContent side="right" className="w-[150px]">
             <div className="text-sm space-y-2">
-              <p>赠送积分：{userInfo?.giftTokens}</p>
-              <p>充值积分：{userInfo?.rechargeTokens}</p>
-              <p>赚取积分：{userInfo?.earnedTokens}</p>
+              <p>{t('profile.gift_credits')}{userInfo?.giftTokens}</p>
+              <p>{t('profile.recharge_credits')}{userInfo?.rechargeTokens}</p>
+              <p>{t('profile.earn_credits')}{userInfo?.earnedTokens}</p>
             </div>
           </HoverCardContent>
         </HoverCard> 

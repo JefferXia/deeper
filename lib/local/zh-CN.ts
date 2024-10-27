@@ -22,7 +22,19 @@ export const zh = {
   profile: {
     upgrade: '开通会员',
     credits_label: '账户余额：',
-    credits_unit: '积分'
+    credits_unit: '积分',
+    no_vip: '未开通会员',
+    gift_credits: '赠送积分：',
+    recharge_credits: '充值积分：',
+    earn_credits: '赚取积分：',
+    credits_details: '积分收支明细',
+    details_type: '类型',
+    details_num: '积分变动数量',
+    details_time: '时间',
+    type_gift: '赠送积分',
+    type_video_analysis: '消耗积分-拆解视频',
+    source_wechat: '充值积分-微信',
+    source_alipay: '充值积分-支付宝'
   },
   hot_page: {
     no_data: '没有热门视频',

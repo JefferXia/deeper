@@ -22,7 +22,19 @@ export const en = {
   profile: {
     upgrade: 'Upgrade',
     credits_label: 'Account: ',
-    credits_unit: 'credits'
+    credits_unit: 'credits',
+    no_vip: 'Not VIP',
+    gift_credits: 'Gift: ',
+    recharge_credits: 'Recharge: ',
+    earn_credits: 'Earn: ',
+    credits_details: 'Income and Expenditure Details',
+    details_type: 'Type',
+    details_num: 'Number of Credits',
+    details_time: 'Time',
+    type_gift: 'Gift Credits',
+    type_video_analysis: 'Trade - Analyse Video',
+    source_wechat: 'Recharge from Wechat',
+    source_alipay: 'Recharge from Alipay'
   },
   hot_page: {
     no_data: 'No data~',
