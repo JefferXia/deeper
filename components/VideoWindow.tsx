@@ -128,11 +128,13 @@ const VideoWindow = ({
           setSubtitles(JSON.parse(data.video.subtitles))
         }
 
-        if (data.video.subtitles && data.video.scene) {
-          setRetry(0)
-          router.replace(`/video-analysis/${id}`);
-        } else {
-          isFirst && setRetry(retry+1)
+        if(isFirst) {
+          if (data.video.subtitles && data.video.scene) {
+            setRetry(0)
+            router.replace(`/video-analysis/${id}`);
+          } else {
+            setRetry(retry+1)
+          }
         }
       }
     } catch (error) {
@@ -142,12 +144,15 @@ const VideoWindow = ({
   };
 
   useEffect(() => {    
-    if (retry > 0 && retry < 11) {
+    if (retry > 0 && retry < 10) {
       (async() => {
-        console.log(retry);
+        // console.log(retry);
         await sleep(5000 * retry);
         await loadVideoData();
       })()    
+    } else if(retry >= 10) {
+      setRetry(0)
+      router.replace(`/video-analysis/${id}`);
     }
   }, [retry]);
 
@@ -322,7 +327,7 @@ const VideoWindow = ({
           <div className="flex-1 space-y-5">
             <VideoInfoBox videoInfo={videoInfo} />
 
-            <VideoMarkmapBox markmapData={markmapData} />
+            {(!isFirst && !markmapData) ? null : <VideoMarkmapBox markmapData={markmapData} />}
 
             <VideoSceneBox sceneData={newScene} handleSeek={seekTo} />
           </div>
