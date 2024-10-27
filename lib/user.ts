@@ -39,8 +39,8 @@ export async function getUser(token?: string) {
     }
 
     // 通过firebase admin校验cookie
-    // const verifyUserInfo = await getUserByToken(userToken)
-    const verifyUserInfo = {uid: 'utest1'};
+    const verifyUserInfo = await getUserByToken(userToken)
+    // const verifyUserInfo = process.env.NODE_ENV === 'development' ? {uid: 'utest1'} : await getUserByToken(userToken);
 
     if(verifyUserInfo) {
       const userData = await findUser(verifyUserInfo?.uid)
